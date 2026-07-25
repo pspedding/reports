@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Central Coast Property Market — June 2026</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet"/>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:"Inter",sans-serif;background:#f1f5f9;color:#1e293b;padding:24px 16px}
+.container{max-width:960px;margin:0 auto}
+header{text-align:center;margin-bottom:32px}
+header h1{font-size:1.75rem;font-weight:700;color:#1e293b}
+header p{color:#64748b;margin-top:6px;font-size:.95rem}
+.card{background:#fff;border-radius:12px;box-shadow:0 1px 4px rgba(0,0,0,.08);padding:24px;margin-bottom:24px}
+.card h2{font-size:1.1rem;font-weight:600;color:#1e293b;margin-bottom:16px;padding-bottom:10px;border-bottom:2px solid #f1f5f9}
+.card h2 .emoji{margin-right:6px}
+/* KPI grid */
+.kpi-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
+@media(max-width:640px){.kpi-grid{grid-template-columns:repeat(2,1fr)}}
+.kpi{background:#f8fafc;border-radius:10px;padding:16px;text-align:center;border:1px solid #e2e8f0}
+.kpi .val{font-size:1.5rem;font-weight:700;color:#2563eb}
+.kpi .val.green{color:#16a34a}
+.kpi .val.amber{color:#d97706}
+.kpi .lbl{font-size:.78rem;color:#64748b;margin-top:4px;font-weight:500}
+/* New suburbs highlight cards */
+.new-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+@media(max-width:560px){.new-grid{grid-template-columns:1fr}}
+.new-card{background:linear-gradient(135deg,#eff6ff,#dbeafe);border:1px solid #93c5fd;border-radius:10px;padding:18px}
+.new-card .suburb-name{font-size:1.1rem;font-weight:700;color:#1d4ed8}
+.new-card .price{font-size:1.4rem;font-weight:700;color:#1e293b;margin:6px 0}
+.new-card .badges{display:flex;gap:8px;flex-wrap:wrap;margin-top:8px}
+.badge{padding:3px 10px;border-radius:20px;font-size:.78rem;font-weight:600}
+.badge.green{background:#dcfce7;color:#16a34a}
+.badge.blue{background:#dbeafe;color:#2563eb}
+.badge.gray{background:#f1f5f9;color:#475569}
+.note{font-size:.82rem;color:#64748b;margin-top:14px;font-style:italic}
+/* Close table */
+.close-table{width:100%;border-collapse:collapse;font-size:.875rem}
+.close-table th{text-align:left;padding:8px 12px;background:#f8fafc;font-weight:600;color:#475569;border-bottom:2px solid #e2e8f0}
+.close-table td{padding:9px 12px;border-bottom:1px solid #f1f5f9}
+.close-table tr:last-child td{border-bottom:none}
+.close-table tr:nth-child(even) td{background:#fafafa}
+.tag-green{color:#16a34a;font-weight:600}
+.tag-red{color:#dc2626;font-weight:600}
+.tag-amber{color:#d97706;font-weight:600}
+.progress-bar-wrap{display:flex;align-items:center;gap:8px}
+.progress-bar{height:8px;border-radius:4px;background:#e2e8f0;flex:1;overflow:hidden}
+.progress-bar .fill{height:100%;border-radius:4px}
+/* Chart containers */
+.chart-wrap{position:relative;height:320px}
+.chart-wrap.tall{height:380px}
+/* Divergence table */
+.div-table{width:100%;border-collapse:collapse;font-size:.875rem}
+.div-table th{padding:8px 12px;background:#f8fafc;font-weight:600;color:#475569;border-bottom:2px solid #e2e8f0;text-align:left}
+.div-table td{padding:9px 12px;border-bottom:1px solid #f1f5f9}
+.div-table tr:nth-child(even) td{background:#fafafa}
+/* Affordable table */
+.aff-table{width:100%;border-collapse:collapse;font-size:.875rem}
+.aff-table th{padding:8px 12px;background:#f8fafc;font-weight:600;color:#475569;border-bottom:2px solid #e2e8f0;text-align:left}
+.aff-table td{padding:9px 12px;border-bottom:1px solid #f1f5f9}
+.aff-table tr.highlight td{background:#fffbeb;border-left:3px solid #d97706}
+.aff-table tr:nth-child(even) td{background:#fafafa}
+.aff-table tr.highlight:nth-child(even) td{background:#fffbeb}
+/* Insight cards */
+.insight-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+@media(max-width:600px){.insight-grid{grid-template-columns:1fr}}
+.insight-card{background:#f8fafc;border-radius:10px;padding:16px;border-left:4px solid #2563eb}
+.insight-card.green{border-left-color:#16a34a}
+.insight-card.amber{border-left-color:#d97706}
+.insight-card.red{border-left-color:#dc2626}
+.insight-card .ic-head{font-weight:700;font-size:.9rem;color:#1e293b;margin-bottom:6px}
+.insight-card .ic-body{font-size:.82rem;color:#475569;line-height:1.5}
+/* Footer */
+footer{text-align:center;font-size:.78rem;color:#94a3b8;margin-top:8px;padding:16px}
+footer p{margin-bottom:4px}
+.warn{background:#fff7ed;border:1px solid #fed7aa;border-radius:8px;padding:10px 14px;font-size:.8rem;color:#92400e;margin-top:12px}
+</style>
+</head>
+<body>
+<div class="container">
+
+<header>
+  <h1>Central Coast Property Market — June 2026</h1>
+  <p>72 suburbs tracked &nbsp;|&nbsp; Source: REA Group &nbsp;|&nbsp; Analysis: See-Change Solutions</p>
+</header>
+
+<!-- KPI CARDS -->
+<div class="card">
+  <h2><span class="emoji">📊</span>Market Overview</h2>
+  <div class="kpi-grid">
+    <div class="kpi"><div class="val">72</div><div class="lbl">Suburbs Tracked</div></div>
+    <div class="kpi"><div class="val">$1.15M</div><div class="lbl">Median House Price</div></div>
+    <div class="kpi"><div class="val">$1.26M</div><div class="lbl">Avg House Price</div></div>
+    <div class="kpi"><div class="val green">+5.6%</div><div class="lbl">Avg House YoY Growth</div></div>
+    <div class="kpi"><div class="val">49</div><div class="lbl">Suburbs Over $1M</div></div>
+    <div class="kpi"><div class="val amber">2</div><div class="lbl">New $1M Suburbs</div></div>
+    <div class="kpi"><div class="val">$757</div><div class="lbl">Avg House Rent /pw</div></div>
+    <div class="kpi"><div class="val">6</div><div class="lbl">No-Unit Suburbs</div></div>
+  </div>
+</div>
+
+<!-- NEW $1M SUBURBS -->
+<div class="card">
+  <h2><span class="emoji">🆕</span>New $1M+ Suburbs</h2>
+  <div class="new-grid">
+    <div class="new-card">
+      <div class="suburb-name">Narara</div>
+      <div class="price">$1,011,250</div>
+      <div class="badges">
+        <span class="badge green">+6.5% YoY</span>
+        <span class="badge green">+1.4% MoM</span>
+        <span class="badge gray">1,355 buyers</span>
+      </div>
+    </div>
+    <div class="new-card">
+      <div class="suburb-name">Noraville ⭐</div>
+      <div class="price">$1,031,000</div>
+      <div class="badges">
+        <span class="badge green">+20.9% YoY</span>
+        <span class="badge green">+5.7% MoM</span>
+        <span class="badge gray">783 buyers</span>
+      </div>
+    </div>
+  </div>
+  <p class="note">These suburbs crossed the $1M median house price threshold for the first time this month. Noraville's +20.9% annual growth is the standout — exceptional for a newly minted million-dollar suburb.</p>
+</div>
+
+<!-- APPROACHING $1M -->
+<div class="card">
+  <h2><span class="emoji">🔜</span>Approaching $1M</h2>
+  <table class="close-table">
+    <thead>
+      <tr><th>Suburb</th><th>House Price</th><th>Gap to $1M</th><th>YoY Growth</th><th>Buyers</th><th>Outlook</th></tr>
+    </thead>
+    <tbody>
+      <tr><td>Wadalba</td><td>$982,500</td><td>$17,500</td><td class="tag-green">+10.4%</td><td>547</td><td>🟢 Strong</td></tr>
+      <tr><td>Gosford</td><td>$980,000</td><td>$20,000</td><td class="tag-green">+1.0%</td><td>161</td><td>🟡 Slow</td></tr>
+      <tr><td>Warnervale</td><td>$975,000</td><td>$25,000</td><td class="tag-red">-4.9%</td><td>328</td><td>🔴 Retreating</td></tr>
+      <tr><td>Niagara Park</td><td>$972,000</td><td>$28,000</td><td class="tag-green">+11.7%</td><td>981</td><td>🟢 Strong</td></tr>
+      <tr><td><strong>Wyoming</strong></td><td>$953,000</td><td>$47,000</td><td class="tag-green">+4.2%</td><td><strong>2,044</strong></td><td>🟢 Watch</td></tr>
+    </tbody>
+  </table>
+  <p class="note">Wyoming has the highest buyer interest of any sub-$1M suburb (2,044) — more than most $1.5M+ markets. Price pressure is building.</p>
+</div>
+
+<!-- TOP HOUSE YoY GAINERS -->
+<div class="card">
+  <h2><span class="emoji">📈</span>Top House Price Gainers — YoY</h2>
+  <div class="chart-wrap">
+    <canvas id="gainersChart"></canvas>
+  </div>
+</div>
+
+<!-- TOP HOUSE YoY LOSERS -->
+<div class="card">
+  <h2><span class="emoji">📉</span>Top House Price Losers — YoY</h2>
+  <div class="chart-wrap" style="height:260px">
+    <canvas id="losersChart"></canvas>
+  </div>
+</div>
+
+<!-- BUYER INTEREST -->
+<div class="card">
+  <h2><span class="emoji">🔥</span>Top 10 Suburbs by Buyer Interest</h2>
+  <div class="chart-wrap">
+    <canvas id="buyersChart"></canvas>
+  </div>
+</div>
+
+<!-- HOUSE VS UNIT DIVERGENCES -->
+<div class="card">
+  <h2><span class="emoji">🔀</span>House vs Unit YoY Divergences</h2>
+  <div class="chart-wrap tall">
+    <canvas id="divChart"></canvas>
+  </div>
+  <div class="warn">⚠️ Extreme unit figures (e.g. Macmasters Beach +78.8%, Copacabana +71.6%) may reflect thin transaction volumes — possibly 1–2 sales moving the median. Treat with caution.</div>
+</div>
+
+<!-- AFFORDABLE HOUSING -->
+<div class="card">
+  <h2><span class="emoji">🏘️</span>Affordable Housing Opportunity — Suburbs with No Unit Stock</h2>
+  <table class="aff-table">
+    <thead>
+      <tr><th>Suburb</th><th>House Price</th><th>Over $1M?</th><th>YoY</th><th>Rent /pw</th><th>Buyers</th></tr>
+    </thead>
+    <tbody>
+      <tr class="highlight"><td><strong>San Remo</strong> ⭐</td><td>$807,000</td><td>No</td><td class="tag-green">+8.3%</td><td>$565</td><td>700</td></tr>
+      <tr><td>Woongarrah</td><td>$1,030,000</td><td>Yes</td><td class="tag-green">+8.4%</td><td>$800</td><td>809</td></tr>
+      <tr><td>Koolewong</td><td>$1,135,000</td><td>Yes</td><td class="tag-green">+18.2%</td><td>$700</td><td>432</td></tr>
+      <tr><td>Bensville</td><td>$1,320,000</td><td>Yes</td><td class="tag-green">+8.2%</td><td>$800</td><td>697</td></tr>
+      <tr><td>Killcare Heights</td><td>$1,762,500</td><td>Yes</td><td class="tag-red">-23.5%</td><td>$1,200</td><td>390</td></tr>
+      <tr><td>Pretty Beach</td><td>$1,900,000</td><td>Yes</td><td class="tag-green">+27.7%</td><td>$875</td><td>148</td></tr>
+    </tbody>
+  </table>
+  <p class="note">These suburbs have no reported unit median price, suggesting limited or no apartment/unit stock — a potential medium-density housing opportunity for Council. San Remo (highlighted) is the most policy-relevant: sub-$1M, growing, active buyer demand, zero units.</p>
+</div>
+
+<!-- KEY INSIGHTS -->
+<div class="card">
+  <h2><span class="emoji">💡</span>Key Insights</h2>
+  <div class="insight-grid">
+    <div class="insight-card amber">
+      <div class="ic-head">🆕 Two Suburbs Join the Million-Dollar Club</div>
+      <div class="ic-body">Narara and Noraville crossed $1M for the first time. Noraville's +20.9% annual growth is the most significant milestone in this month's data.</div>
+    </div>
+    <div class="insight-card red">
+      <div class="ic-head">🏙️ The Gosford Paradox</div>
+      <div class="ic-body">The LGA's own CBD sits at $980k with just 161 interested buyers — the lowest of any near-$1M suburb. The city centre discount persists despite proximity to the threshold.</div>
+    </div>
+    <div class="insight-card green">
+      <div class="ic-head">🌏 Northern Corridor Emerging</div>
+      <div class="ic-body">Gorokan (+14.2%), Toukley (+11.7%), Noraville (+20.9%), Wyee (+28.7%), Charmhaven (+11.6%) — the Lake Munmorah northern corridor is the Coast's new growth engine.</div>
+    </div>
+    <div class="insight-card red">
+      <div class="ic-head">📉 Luxury Market Cooling</div>
+      <div class="ic-body">Matcham (-8.4%), Wagstaffe (-8.5%), Point Frederick (-6.9%) and North Avoca (-10.3%) all declining. The $2M+ tier is uniformly soft this month.</div>
+    </div>
+    <div class="insight-card amber">
+      <div class="ic-head">🏘️ San Remo — Housing Opportunity</div>
+      <div class="ic-body">Sub-$1M at $807k, growing +8.3%, 700 active buyers, zero unit stock. Prime candidate for Council to encourage medium-density affordable housing development.</div>
+    </div>
+    <div class="insight-card green">
+      <div class="ic-head">👁️ Wyoming — Watch List</div>
+      <div class="ic-body">2,044 interested buyers for a $953k suburb is extraordinary — more than most $1.5M+ markets. Watch for $1M crossing within 12 months if momentum holds.</div>
+    </div>
+  </div>
+</div>
+
+<footer>
+  <p>Data: REA Group, June 2026 &nbsp;|&nbsp; Analysis: See-Change Solutions &nbsp;|&nbsp; Generated July 2026</p>
+  <p>⚠️ Unit YoY figures for small suburbs may reflect thin transaction volumes (1–2 sales). Treat extreme outliers with caution.</p>
+</footer>
+
+</div><!-- /container -->
+
+<script>
+Chart.defaults.font.family = "Inter, sans-serif";
+Chart.defaults.font.size = 12;
+
+// --- GAINERS ---
+new Chart(document.getElementById("gainersChart"), {
+  type: "bar",
+  data: {
+    labels: ["Wyee","Holgate","Pretty Beach","Noraville","Pearl Beach","Koolewong","Wamberal","Empire Bay","Woy Woy","Gorokan"],
+    datasets: [{
+      label: "House YoY Growth (%)",
+      data: [28.7,28.6,27.7,20.9,20.6,18.2,17.4,16.0,15.0,14.2],
+      backgroundColor: "#2563eb",
+      borderRadius: 5
+    }]
+  },
+  options: {
+    indexAxis: "y",
+    responsive: true,
+    maintainAspectRatio: false,
+    plugins: { legend: { display: false } },
+    scales: {
+      x: { grid: { color: "#f1f5f9" }, ticks: { callback: v => v+"%" } },
+      y: { grid: { display: false } }
+    }
+  }
+});
+
+// --- LOSERS ---
+new Chart(document.getElementById("losersChart"), {
+  type: "bar",
+  data: {
+    labels: ["Erina Heights","Killcare Heights","West Gosford","North Avoca","Wagstaffe","Matcham","Point Frederick","Copacabana"],
+    datasets: [{
+      label: "House YoY Growth (%)",
+      data: [-27.6,-23.5,-22.2,-10.3,-8.5,-8.4,-6.9,-6.7],
+      backgroundColor: "#dc2626",
+      borderRadius: 5
+    }]
+  },
+  options: {
+    indexAxis: "y",
+    responsive: true,
+    maintainAspectRatio: false,
+    plugins: { legend: { display: false } },
+    scales: {
+      x: { grid: { color: "#f1f5f9" }, ticks: { callback: v => v+"%" } },
+      y: { grid: { display: false } }
+    }
+  }
+});
+
+// --- BUYERS ---
+new Chart(document.getElementById("buyersChart"), {
+  type: "bar",
+  data: {
+    labels: ["Terrigal","Wamberal","Umina Beach","Bateau Bay","Ourimbah","Wyoming","Lisarow","Wyee","Gorokan","Tumbi Umbi"],
+    datasets: [{
+      label: "Interested Buyers",
+      data: [2906,2312,2249,2194,2067,2044,1957,1837,1810,1745],
+      backgroundColor: "#7c3aed",
+      borderRadius: 5
+    }]
+  },
+  options: {
+    indexAxis: "y",
+    responsive: true,
+    maintainAspectRatio: false,
+    plugins: { legend: { display: false } },
+    scales: {
+      x: { grid: { color: "#f1f5f9" } },
+      y: { grid: { display: false } }
+    }
+  }
+});
+
+// --- DIVERGENCES ---
+new Chart(document.getElementById("divChart"), {
+  type: "bar",
+  data: {
+    labels: ["Forresters Beach","Macmasters Beach","Copacabana","Holgate","Davistown","Blue Bay","Tuggerah"],
+    datasets: [
+      {
+        label: "House YoY (%)",
+        data: [14.1,-0.9,-6.7,28.6,6.8,-4.4,-0.9],
+        backgroundColor: "#2563eb",
+        borderRadius: 4
+      },
+      {
+        label: "Unit YoY (%)",
+        data: [-65.0,78.8,71.6,-27.1,-40.0,36.7,31.9],
+        backgroundColor: "#f97316",
+        borderRadius: 4
+      }
+    ]
+  },
+  options: {
+    indexAxis: "y",
+    responsive: true,
+    maintainAspectRatio: false,
+    plugins: {
+      legend: { position: "top" },
+      tooltip: { callbacks: { label: ctx => ctx.dataset.label + ": " + ctx.raw + "%" } }
+    },
+    scales: {
+      x: { grid: { color: "#f1f5f9" }, ticks: { callback: v => v+"%" } },
+      y: { grid: { display: false } }
+    }
+  }
+});
+</script>
+</body>
+</html>
