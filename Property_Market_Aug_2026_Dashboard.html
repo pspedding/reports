@@ -1,0 +1,432 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Central Coast Property Market — August 2026</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet"/>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:"Inter",sans-serif;background:#f1f5f9;color:#1e293b;padding:24px 16px}
+.container{max-width:960px;margin:0 auto}
+header{text-align:center;margin-bottom:32px}
+header h1{font-size:1.75rem;font-weight:700;color:#1e293b}
+header p{color:#64748b;margin-top:6px;font-size:.95rem}
+.card{background:#fff;border-radius:12px;box-shadow:0 1px 4px rgba(0,0,0,.08);padding:24px;margin-bottom:24px}
+.card h2{font-size:1.1rem;font-weight:600;color:#1e293b;margin-bottom:16px;padding-bottom:10px;border-bottom:2px solid #f1f5f9}
+.card h2 .emoji{margin-right:6px}
+.kpi-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
+@media(max-width:640px){.kpi-grid{grid-template-columns:repeat(2,1fr)}}
+.kpi{background:#f8fafc;border-radius:10px;padding:16px;text-align:center;border:1px solid #e2e8f0}
+.kpi .val{font-size:1.5rem;font-weight:700;color:#2563eb}
+.kpi .val.green{color:#16a34a}
+.kpi .val.amber{color:#d97706}
+.kpi .val.red{color:#dc2626}
+.kpi .lbl{font-size:.78rem;color:#64748b;margin-top:4px;font-weight:500}
+.change-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:14px}
+.change-card{background:linear-gradient(135deg,#eff6ff,#dbeafe);border:1px solid #93c5fd;border-radius:10px;padding:18px}
+.change-card.up{background:linear-gradient(135deg,#f0fdf4,#dcfce7);border-color:#86efac}
+.change-card.down{background:linear-gradient(135deg,#fff7ed,#ffedd5);border-color:#fdba74}
+.change-card.warn{background:linear-gradient(135deg,#fef2f2,#fee2e2);border-color:#fca5a5}
+.change-card .suburb-name{font-size:1rem;font-weight:700;color:#1d4ed8}
+.change-card.up .suburb-name{color:#15803d}
+.change-card.down .suburb-name{color:#b45309}
+.change-card.warn .suburb-name{color:#b91c1c}
+.change-card .price{font-size:1.25rem;font-weight:700;color:#1e293b;margin:6px 0}
+.change-card .badges{display:flex;gap:8px;flex-wrap:wrap;margin-top:8px}
+.badge{padding:3px 10px;border-radius:20px;font-size:.78rem;font-weight:600}
+.badge.green{background:#dcfce7;color:#16a34a}
+.badge.blue{background:#dbeafe;color:#2563eb}
+.badge.amber{background:#fef9c3;color:#a16207}
+.badge.red{background:#fee2e2;color:#dc2626}
+.badge.gray{background:#f1f5f9;color:#475569}
+.note{font-size:.82rem;color:#64748b;margin-top:14px;font-style:italic}
+.close-table{width:100%;border-collapse:collapse;font-size:.875rem}
+.close-table th{text-align:left;padding:8px 12px;background:#f8fafc;font-weight:600;color:#475569;border-bottom:2px solid #e2e8f0}
+.close-table td{padding:9px 12px;border-bottom:1px solid #f1f5f9}
+.close-table tr:last-child td{border-bottom:none}
+.close-table tr:nth-child(even) td{background:#fafafa}
+.tag-green{color:#16a34a;font-weight:600}
+.tag-red{color:#dc2626;font-weight:600}
+.tag-amber{color:#d97706;font-weight:600}
+.chart-wrap{position:relative;height:320px}
+.chart-wrap.tall{height:420px}
+.chart-wrap.xlarge{height:500px}
+.mom-table{width:100%;border-collapse:collapse;font-size:.875rem}
+.mom-table th{padding:8px 12px;background:#f8fafc;font-weight:600;color:#475569;border-bottom:2px solid #e2e8f0;text-align:left}
+.mom-table td{padding:9px 12px;border-bottom:1px solid #f1f5f9}
+.mom-table tr:nth-child(even) td{background:#fafafa}
+.aff-table{width:100%;border-collapse:collapse;font-size:.875rem}
+.aff-table th{padding:8px 12px;background:#f8fafc;font-weight:600;color:#475569;border-bottom:2px solid #e2e8f0;text-align:left}
+.aff-table td{padding:9px 12px;border-bottom:1px solid #f1f5f9}
+.aff-table tr.highlight td{background:#fffbeb;border-left:3px solid #d97706}
+.aff-table tr:nth-child(even) td{background:#fafafa}
+.aff-table tr.highlight:nth-child(even) td{background:#fffbeb}
+.insight-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+@media(max-width:600px){.insight-grid{grid-template-columns:1fr}}
+.insight-card{background:#f8fafc;border-radius:10px;padding:16px;border-left:4px solid #2563eb}
+.insight-card.green{border-left-color:#16a34a}
+.insight-card.amber{border-left-color:#d97706}
+.insight-card.red{border-left-color:#dc2626}
+.insight-card .ic-head{font-weight:700;font-size:.9rem;color:#1e293b;margin-bottom:6px}
+.insight-card .ic-body{font-size:.82rem;color:#475569;line-height:1.5}
+footer{text-align:center;font-size:.78rem;color:#94a3b8;margin-top:8px;padding:16px}
+footer p{margin-bottom:4px}
+.warn{background:#fff7ed;border:1px solid #fed7aa;border-radius:8px;padding:10px 14px;font-size:.8rem;color:#92400e;margin-top:12px}
+.info-box{background:#eff6ff;border:1px solid #93c5fd;border-radius:8px;padding:10px 14px;font-size:.8rem;color:#1e40af;margin-top:12px}
+</style>
+</head>
+<body>
+<div class="container">
+
+<header>
+  <h1>Central Coast Property Market — August 2026</h1>
+  <p>72 suburbs tracked &nbsp;|&nbsp; Source: REA Group &nbsp;|&nbsp; Analysis: See-Change Solutions</p>
+</header>
+
+<!-- KPI CARDS -->
+<div class="card">
+  <h2><span class="emoji">📊</span>Market Overview</h2>
+  <div class="kpi-grid">
+    <div class="kpi"><div class="val">72</div><div class="lbl">Suburbs Tracked</div></div>
+    <div class="kpi"><div class="val">$1.155M</div><div class="lbl">Median House Price</div></div>
+    <div class="kpi"><div class="val">$1.258M</div><div class="lbl">Avg House Price</div></div>
+    <div class="kpi"><div class="val green">+4.5%</div><div class="lbl">Avg House YoY Growth</div></div>
+    <div class="kpi"><div class="val">52</div><div class="lbl">Suburbs Over $1M</div></div>
+    <div class="kpi"><div class="val amber">6</div><div class="lbl">Approaching $1M ("Close")</div></div>
+    <div class="kpi"><div class="val">7</div><div class="lbl">No-Unit Suburbs</div></div>
+    <div class="kpi"><div class="val green">19</div><div class="lbl">Suburbs Growing >10% YoY</div></div>
+  </div>
+</div>
+
+<!-- FLAG CHANGES -->
+<div class="card">
+  <h2><span class="emoji">🔄</span>Suburb Status Changes Since June 2026</h2>
+  <div class="change-grid">
+    <div class="change-card up">
+      <div class="suburb-name">Gosford ✅</div>
+      <div class="price">$1,088,000</div>
+      <div class="badges">
+        <span class="badge green">Close → $1M+</span>
+        <span class="badge green">+14.5% YoY</span>
+        <span class="badge green">+$108k since Jun</span>
+      </div>
+    </div>
+    <div class="change-card up">
+      <div class="suburb-name">Narara ✅</div>
+      <div class="price">$1,055,000</div>
+      <div class="badges">
+        <span class="badge blue">New → Confirmed $1M+</span>
+        <span class="badge green">+10.7% YoY</span>
+      </div>
+    </div>
+    <div class="change-card up">
+      <div class="suburb-name">Wyongah ⭐</div>
+      <div class="price">$972,500</div>
+      <div class="badges">
+        <span class="badge green">N → Close</span>
+        <span class="badge green">+21.6% YoY — fastest-rising</span>
+      </div>
+    </div>
+    <div class="change-card up">
+      <div class="suburb-name">Killarney Vale 🟡</div>
+      <div class="price">$961,750</div>
+      <div class="badges">
+        <span class="badge green">N → Close</span>
+        <span class="badge green">+4.5% YoY</span>
+      </div>
+    </div>
+    <div class="change-card warn">
+      <div class="suburb-name">Noraville ⬇️</div>
+      <div class="price">$950,000</div>
+      <div class="badges">
+        <span class="badge amber">$1M → Below $1M</span>
+        <span class="badge amber">-$81k since Jun</span>
+      </div>
+    </div>
+    <div class="change-card warn">
+      <div class="suburb-name">Koolewong ⬇️</div>
+      <div class="price">$975,000</div>
+      <div class="badges">
+        <span class="badge amber">$1M+ → Close</span>
+        <span class="badge red">-$160k since Jun</span>
+      </div>
+    </div>
+    <div class="change-card warn">
+      <div class="suburb-name">Warnervale 🔴</div>
+      <div class="price">$875,000</div>
+      <div class="badges">
+        <span class="badge red">Close → Sub-$1M</span>
+        <span class="badge red">-13.6% YoY</span>
+      </div>
+    </div>
+  </div>
+  <p class="note">The headline event: Gosford CBD finally crosses $1M (+$108k in two months). Noraville's retreat after briefly crossing in June confirms a thin-market artefact. Koolewong's rapid -$160k decline is the most concerning single movement this period.</p>
+</div>
+
+<!-- APPROACHING $1M -->
+<div class="card">
+  <h2><span class="emoji">🔜</span>Approaching $1M — August 2026</h2>
+  <table class="close-table">
+    <thead>
+      <tr><th>Suburb</th><th>House Price</th><th>Gap to $1M</th><th>YoY Growth</th><th>MoM</th><th>Outlook</th></tr>
+    </thead>
+    <tbody>
+      <tr><td><strong>Wadalba</strong></td><td>$990,000</td><td>$10,000</td><td class="tag-green">+10.6%</td><td class="tag-green">+0.8%</td><td>🟢 Imminent</td></tr>
+      <tr><td>Koolewong</td><td>$975,000</td><td>$25,000</td><td class="tag-red">-6.0%</td><td class="tag-red">-12.6%</td><td>🔴 Retreating</td></tr>
+      <tr><td>Niagara Park</td><td>$973,500</td><td>$26,500</td><td class="tag-green">+11.3%</td><td class="tag-green">+0.4%</td><td>🟢 Strong</td></tr>
+      <tr><td><strong>Wyongah</strong> ⭐</td><td>$972,500</td><td>$27,500</td><td class="tag-green">+21.6%</td><td class="tag-green">+2.9%</td><td>🟢 Fastest-rising</td></tr>
+      <tr><td>Wyoming</td><td>$968,500</td><td>$31,500</td><td class="tag-green">+6.1%</td><td class="tag-green">+0.3%</td><td>🟢 Steady</td></tr>
+      <tr><td>Killarney Vale</td><td>$961,750</td><td>$38,250</td><td class="tag-green">+4.5%</td><td class="tag-green">+0.7%</td><td>🟡 Gradual</td></tr>
+    </tbody>
+  </table>
+  <p class="note">Wadalba is just $10,000 from $1M with strong +10.6% annual momentum — most likely to cross next month. Wyongah (+21.6% YoY) newly joins the "Close" list and could cross within 6–9 months. Koolewong is actively moving away from $1M.</p>
+</div>
+
+<!-- TOP YOY GAINERS -->
+<div class="card">
+  <h2><span class="emoji">📈</span>Top House Price Gainers — Year on Year (&gt;10%)</h2>
+  <div class="chart-wrap tall">
+    <canvas id="gainersChart"></canvas>
+  </div>
+</div>
+
+<!-- TOP YOY LOSERS -->
+<div class="card">
+  <h2><span class="emoji">📉</span>Top House Price Losers — Year on Year</h2>
+  <div class="chart-wrap" style="height:260px">
+    <canvas id="losersChart"></canvas>
+  </div>
+</div>
+
+<!-- JUN→AUG CHANGES -->
+<div class="card">
+  <h2><span class="emoji">📆</span>Biggest House Price Moves Since June 2026</h2>
+  <table class="mom-table">
+    <thead>
+      <tr><th>Suburb</th><th>Jun Price</th><th>Aug Price</th><th>Change</th><th>Note</th></tr>
+    </thead>
+    <tbody>
+      <tr><td><strong>Erina Heights</strong></td><td>$1,582,500</td><td>$1,965,000</td><td class="tag-green">+24.2%</td><td>⚠️ Small market — thin sample</td></tr>
+      <tr><td><strong>Gosford</strong> ⭐</td><td>$980,000</td><td>$1,088,000</td><td class="tag-green">+11.0%</td><td>Crossed $1M milestone</td></tr>
+      <tr><td>The Entrance</td><td>$1,000,000</td><td>$1,087,500</td><td class="tag-green">+8.8%</td><td>Solid suburban growth</td></tr>
+      <tr><td>Wyongah</td><td>$895,000</td><td>$972,500</td><td class="tag-green">+8.7%</td><td>Entering "Close" territory</td></tr>
+      <tr><td>Saratoga</td><td>$1,300,000</td><td>$1,385,000</td><td class="tag-green">+6.5%</td><td>Waterfront steady growth</td></tr>
+      <tr><td>Copacabana</td><td>$1,618,000</td><td>$1,700,000</td><td class="tag-green">+5.1%</td><td>Coastal recovery</td></tr>
+      <tr><td>Davistown</td><td>$1,330,000</td><td>$1,205,000</td><td class="tag-red">-9.4%</td><td>Notable correction</td></tr>
+      <tr><td>Blue Bay</td><td>$1,740,000</td><td>$1,560,500</td><td class="tag-red">-10.3%</td><td>Luxury coastal retreat</td></tr>
+      <tr><td>Warnervale</td><td>$975,000</td><td>$875,000</td><td class="tag-red">-10.3%</td><td>Lost $1M proximity status</td></tr>
+      <tr><td><strong>Koolewong</strong></td><td>$1,135,000</td><td>$975,000</td><td class="tag-red">-14.1%</td><td>Dropped from $1M+ to Close</td></tr>
+      <tr><td>Matcham</td><td>$2,520,000</td><td>$2,325,000</td><td class="tag-red">-7.7%</td><td>Luxury rural softening</td></tr>
+      <tr><td>Point Frederick</td><td>$2,025,000</td><td>$1,887,500</td><td class="tag-red">-6.8%</td><td>Prestige waterfront cooling</td></tr>
+    </tbody>
+  </table>
+</div>
+
+<!-- UNIT MARKET -->
+<div class="card">
+  <h2><span class="emoji">🏢</span>Unit Market — YoY Performance</h2>
+  <div class="chart-wrap xlarge">
+    <canvas id="unitChart"></canvas>
+  </div>
+  <div class="warn">⚠️ Extreme unit figures (Forresters Beach +131.9%, North Avoca +121.7%, Macmasters Beach +78.8%) reflect thin transaction volumes — 1–2 sales shifting the median. These are not genuine market-wide movements. Note: Forresters Beach was -65% in June — a complete reversal caused by the same thin-market effect.</div>
+</div>
+
+<!-- HOUSE VS UNIT DIVERGENCES -->
+<div class="card">
+  <h2><span class="emoji">🔀</span>House vs Unit YoY Divergences</h2>
+  <div class="chart-wrap tall">
+    <canvas id="divChart"></canvas>
+  </div>
+  <div class="info-box">📋 The most genuine divergences: Erina (houses +2.2% vs units -23.7%) and Holgate (houses +4.2% vs units -27.1%) — both show a real two-speed market. Forresters Beach and North Avoca divergences are data artefacts.</div>
+</div>
+
+<!-- AFFORDABLE HOUSING -->
+<div class="card">
+  <h2><span class="emoji">🏘️</span>Affordable Housing Opportunity — Suburbs with No Unit Stock</h2>
+  <table class="aff-table">
+    <thead>
+      <tr><th>Suburb</th><th>House Price</th><th>Over $1M?</th><th>YoY</th><th>Rent /pw</th><th>Notes</th></tr>
+    </thead>
+    <tbody>
+      <tr class="highlight"><td><strong>Woongarrah</strong> ⭐</td><td>$1,050,000</td><td>Yes</td><td class="tag-green">+9.9%</td><td>$800</td><td>Growth corridor — best opportunity</td></tr>
+      <tr><td>Warnervale</td><td>$875,000</td><td>No</td><td class="tag-red">-13.6%</td><td>$800</td><td>Had units in June ($275k) — now absent</td></tr>
+      <tr><td>Koolewong</td><td>$975,000</td><td>Close</td><td class="tag-red">-6.0%</td><td>$700</td><td>Waterfront; no established unit stock</td></tr>
+      <tr><td>Bensville</td><td>$1,320,000</td><td>Yes</td><td class="tag-green">+8.2%</td><td>$800</td><td>Peninsula; high house price floor</td></tr>
+      <tr><td>Killcare Heights</td><td>$1,850,000</td><td>Yes</td><td class="tag-red">-17.9%</td><td>$1,200</td><td>Luxury enclave — not policy-relevant</td></tr>
+      <tr><td>Pretty Beach</td><td>$1,857,500</td><td>Yes</td><td class="tag-green">+12.6%</td><td>$850</td><td>Exclusive coastal — not policy-relevant</td></tr>
+      <tr><td>Erina Heights</td><td>$1,965,000</td><td>Yes</td><td class="tag-red">-10.1%</td><td>$998</td><td>Anomalous Jun unit data cleared</td></tr>
+    </tbody>
+  </table>
+  <p class="note">Woongarrah is the standout affordable housing opportunity — a modern growth-area suburb with active demand (+9.9% YoY) and no established unit market. Medium-density infill here aligns with both housing affordability goals and market fundamentals. Note: San Remo gained unit data this month ($630,000) — no longer in the no-unit category.</p>
+</div>
+
+<!-- KEY INSIGHTS -->
+<div class="card">
+  <h2><span class="emoji">💡</span>Key Insights — August 2026</h2>
+  <div class="insight-grid">
+    <div class="insight-card amber">
+      <div class="ic-head">🏙️ Gosford Crosses $1M — A Policy Milestone</div>
+      <div class="ic-body">The LGA's own CBD hits $1,088,000, up +$108k in just two months and +14.5% YoY. The long-running Gosford city centre discount is narrowing — this is the most significant milestone in this month's data.</div>
+    </div>
+    <div class="insight-card green">
+      <div class="ic-head">⭐ Wyongah: Fastest-Rising Suburb at +21.6%</div>
+      <div class="ic-body">Newly entering "Close" territory at $972,500 with units also up +30% YoY. An outer northern suburb accelerating rapidly — likely to cross $1M within 6–9 months at this pace.</div>
+    </div>
+    <div class="insight-card green">
+      <div class="ic-head">🌏 Northern Corridor: Broad, Sustained Growth</div>
+      <div class="ic-body">Tuggerawong +21.4%, Gorokan +13.2%, Wyee +14%, The Entrance +14.8%, Woy Woy +13.4%, Norah Head +11.7% — all sub-$1.1M. The northern Lake Munmorah corridor is the Coast's growth engine for the second consecutive report.</div>
+    </div>
+    <div class="insight-card red">
+      <div class="ic-head">📉 Luxury Tier: Sustained Correction</div>
+      <div class="ic-body">Killcare Heights -17.9%, Matcham -14.9%, Blue Bay -14.3%, Point Frederick -12.7%, Erina Heights -10.1%. The $1.5M+ tier is declining for the second consecutive month — this is now a trend, not noise.</div>
+    </div>
+    <div class="insight-card red">
+      <div class="ic-head">🔴 Koolewong: Rapid -$160k Decline</div>
+      <div class="ic-body">Fell from $1,135,000 to $975,000 in two months (-14.1%), losing its $1M+ status. At -12.6% in a single month, this waterfront suburb is the most alarming single movement in the dataset.</div>
+    </div>
+    <div class="insight-card amber">
+      <div class="ic-head">🔜 Wadalba: $10k from the Threshold</div>
+      <div class="ic-body">At $990,000 with +10.6% annual momentum and consistent monthly growth, Wadalba is the suburb most likely to cross $1M in the next data release.</div>
+    </div>
+    <div class="insight-card amber">
+      <div class="ic-head">⚠️ Noraville Retreats — Thin Market Confirmed</div>
+      <div class="ic-body">After briefly crossing $1M in June at $1,031,000, Noraville has pulled back to $950,000. Its June crossing was driven by 1–2 higher-value sales; the underlying median remains sub-$1M.</div>
+    </div>
+    <div class="insight-card green">
+      <div class="ic-head">🏘️ Woongarrah — Housing Opportunity</div>
+      <div class="ic-body">A modern growth suburb with +9.9% YoY, $800/week rents, and zero established unit stock. The strongest candidate for Council advocacy of medium-density infill development.</div>
+    </div>
+  </div>
+</div>
+
+<footer>
+  <p>Data: REA Group, August 2026 &nbsp;|&nbsp; Analysis: See-Change Solutions &nbsp;|&nbsp; Generated September 2026</p>
+  <p>⚠️ Unit YoY figures for small suburbs may reflect thin transaction volumes (1–2 sales). Treat extreme outliers with caution.</p>
+</footer>
+
+</div>
+
+<script>
+Chart.defaults.font.family = "Inter, sans-serif";
+Chart.defaults.font.size = 12;
+
+// GAINERS
+new Chart(document.getElementById("gainersChart"), {
+  type: "bar",
+  data: {
+    labels: ["Wyongah","Tuggerawong","Wagstaffe","Pearl Beach","Empire Bay","The Entrance","Forresters Beach","Gosford","Wyee","Woy Woy","Gorokan","Pretty Beach","Norah Head","Berkeley Vale","Niagara Park","Hamlyn Terrace","Narara","Wadalba","Lisarow"],
+    datasets: [{
+      label: "House YoY Growth (%)",
+      data: [21.6,21.4,18.4,17.8,15.9,14.8,14.6,14.5,14.0,13.4,13.2,12.6,11.7,11.3,11.3,10.9,10.7,10.6,10.1],
+      backgroundColor: "#2563eb",
+      borderRadius: 5
+    }]
+  },
+  options: {
+    indexAxis: "y",
+    responsive: true,
+    maintainAspectRatio: false,
+    plugins: { legend: { display: false } },
+    scales: {
+      x: { grid: { color: "#f1f5f9" }, ticks: { callback: v => v+"%" } },
+      y: { grid: { display: false }, ticks: { font: { size: 11 } } }
+    }
+  }
+});
+
+// LOSERS
+new Chart(document.getElementById("losersChart"), {
+  type: "bar",
+  data: {
+    labels: ["Killcare Heights","Matcham","Blue Bay","Warnervale","Point Frederick","Erina Heights"],
+    datasets: [{
+      label: "House YoY Growth (%)",
+      data: [-17.9,-14.9,-14.3,-13.6,-12.7,-10.1],
+      backgroundColor: "#dc2626",
+      borderRadius: 5
+    }]
+  },
+  options: {
+    indexAxis: "y",
+    responsive: true,
+    maintainAspectRatio: false,
+    plugins: { legend: { display: false } },
+    scales: {
+      x: { grid: { color: "#f1f5f9" }, ticks: { callback: v => v+"%" } },
+      y: { grid: { display: false } }
+    }
+  }
+});
+
+// UNIT MARKET
+new Chart(document.getElementById("unitChart"), {
+  type: "bar",
+  data: {
+    labels: [
+      "Forresters Beach","North Avoca","Macmasters Beach","Copacabana","Matcham",
+      "Norah Head","Wyongah","Tuggerah","Saratoga","Tascott","Wyong","Berkeley Vale",
+      "Budgewoi","Gorokan","Point Clare","Noraville",
+      "Holgate","Magenta","Erina","The Entrance North","Canton Beach"
+    ],
+    datasets: [{
+      label: "Unit YoY (%)",
+      data: [131.9,121.7,78.8,54.0,37.7,31.5,30.0,27.9,26.4,26.3,23.5,23.4,19.1,17.7,17.0,15.9,
+             -27.1,-23.9,-23.7,-12.6,-12.9],
+      backgroundColor: (ctx) => ctx.raw >= 0 ? "#16a34a" : "#dc2626",
+      borderRadius: 5
+    }]
+  },
+  options: {
+    indexAxis: "y",
+    responsive: true,
+    maintainAspectRatio: false,
+    plugins: {
+      legend: { display: false },
+      tooltip: { callbacks: { label: ctx => ctx.raw+"%" } }
+    },
+    scales: {
+      x: { grid: { color: "#f1f5f9" }, ticks: { callback: v => v+"%" } },
+      y: { grid: { display: false }, ticks: { font: { size: 11 } } }
+    }
+  }
+});
+
+// DIVERGENCES
+new Chart(document.getElementById("divChart"), {
+  type: "bar",
+  data: {
+    labels: ["Forresters Beach","North Avoca","Macmasters Beach","Copacabana","Tuggerah","Saratoga","Tascott","Erina","Holgate","Matcham"],
+    datasets: [
+      {
+        label: "House YoY (%)",
+        data: [14.6,-8.0,-6.4,3.7,0.7,4.5,-2.9,2.2,4.2,-14.9],
+        backgroundColor: "#2563eb",
+        borderRadius: 4
+      },
+      {
+        label: "Unit YoY (%)",
+        data: [131.9,121.7,78.8,54.0,27.9,26.4,26.3,-23.7,-27.1,37.7],
+        backgroundColor: "#f97316",
+        borderRadius: 4
+      }
+    ]
+  },
+  options: {
+    indexAxis: "y",
+    responsive: true,
+    maintainAspectRatio: false,
+    plugins: {
+      legend: { position: "top" },
+      tooltip: { callbacks: { label: ctx => ctx.dataset.label + ": " + ctx.raw + "%" } }
+    },
+    scales: {
+      x: { grid: { color: "#f1f5f9" }, ticks: { callback: v => v+"%" } },
+      y: { grid: { display: false } }
+    }
+  }
+});
+</script>
+</body>
+</html>
