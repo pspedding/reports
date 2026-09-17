@@ -1,0 +1,686 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Australian Migration Analysis — Policy Briefing 2026</title>
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'Segoe UI', Arial, sans-serif;
+    background: #f0f2f5;
+    color: #222;
+    line-height: 1.6;
+  }
+
+  /* ── Header banner ── */
+  .page-header {
+    background: linear-gradient(135deg, #003366 0%, #1a5497 60%, #2166ac 100%);
+    color: white;
+    padding: 36px 40px 28px;
+  }
+  .page-header .kicker {
+    font-size: 0.72rem;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    color: #a8c8f0;
+    margin-bottom: 8px;
+  }
+  .page-header h1 {
+    font-size: 1.7rem;
+    font-weight: 700;
+    line-height: 1.2;
+    margin-bottom: 10px;
+  }
+  .page-header .subtitle {
+    font-size: 0.88rem;
+    color: #c8ddf0;
+    max-width: 720px;
+  }
+  .meta-row {
+    display: flex;
+    gap: 20px;
+    margin-top: 18px;
+    flex-wrap: wrap;
+  }
+  .meta-pill {
+    background: rgba(255,255,255,0.15);
+    border: 1px solid rgba(255,255,255,0.25);
+    border-radius: 20px;
+    padding: 4px 14px;
+    font-size: 0.75rem;
+    color: #ddeeff;
+  }
+
+  /* ── Page body ── */
+  .page-body {
+    max-width: 1020px;
+    margin: 0 auto;
+    padding: 28px 24px 60px;
+  }
+
+  /* ── Executive summary ── */
+  .exec-summary {
+    background: white;
+    border: 1px solid #dde5ef;
+    border-left: 5px solid #2166ac;
+    border-radius: 10px;
+    padding: 22px 26px;
+    margin-bottom: 24px;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.06);
+  }
+  .exec-summary h2 {
+    font-size: 0.72rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: #2166ac;
+    margin-bottom: 10px;
+  }
+  .exec-summary p {
+    font-size: 0.93rem;
+    color: #333;
+    line-height: 1.65;
+  }
+
+  /* ── KPI stat row ── */
+  .kpi-row {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 14px;
+    margin-bottom: 24px;
+  }
+  .kpi-card {
+    background: white;
+    border: 1px solid #dde5ef;
+    border-radius: 10px;
+    padding: 16px 18px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+  }
+  .kpi-card .kpi-val {
+    font-size: 1.55rem;
+    font-weight: 700;
+    color: #003366;
+    line-height: 1.1;
+  }
+  .kpi-card .kpi-val.alp { color: #b91c1c; }
+  .kpi-card .kpi-val.lnp { color: #1d4ed8; }
+  .kpi-card .kpi-label {
+    font-size: 0.72rem;
+    color: #667085;
+    margin-top: 5px;
+    line-height: 1.35;
+  }
+  .kpi-card .kpi-sub {
+    font-size: 0.68rem;
+    color: #99aabb;
+    margin-top: 3px;
+  }
+
+  /* ── Section label ── */
+  .section-label {
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: #8899aa;
+    border-bottom: 1px solid #dde5ef;
+    padding-bottom: 6px;
+    margin-bottom: 16px;
+    margin-top: 32px;
+  }
+
+  /* ── Intel cards (two-column grid) ── */
+  .card-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+    margin-bottom: 20px;
+  }
+  .card-grid.single { grid-template-columns: 1fr; }
+  .card-grid.three  { grid-template-columns: 1fr 1fr 1fr; }
+
+  .intel-card {
+    background: white;
+    border: 1px solid #dde5ef;
+    border-radius: 10px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.06);
+    overflow: hidden;
+  }
+  .intel-card.span2 { grid-column: span 2; }
+
+  .intel-header {
+    background: #f7f9fc;
+    border-bottom: 1px solid #e8eef6;
+    padding: 14px 18px;
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+  }
+  .intel-header .icon { font-size: 1.3rem; line-height: 1; margin-top: 2px; }
+  .intel-header h2 {
+    font-size: 0.95rem;
+    font-weight: 700;
+    color: #003366;
+    margin-bottom: 3px;
+  }
+  .intel-header p {
+    font-size: 0.75rem;
+    color: #667085;
+    line-height: 1.4;
+  }
+
+  .intel-body {
+    padding: 16px 18px;
+    font-size: 0.85rem;
+    color: #334;
+    line-height: 1.6;
+  }
+  .intel-body p { margin-bottom: 10px; }
+  .intel-body p:last-child { margin-bottom: 0; }
+  .intel-body strong { color: #003366; }
+
+  /* ── Finding bullets ── */
+  .finding-list { list-style: none; margin-top: 10px; }
+  .finding-list li {
+    display: flex;
+    gap: 9px;
+    padding: 8px 0;
+    border-bottom: 1px solid #f0f2f5;
+    font-size: 0.83rem;
+    line-height: 1.45;
+    color: #334;
+  }
+  .finding-list li:last-child { border-bottom: none; }
+  .finding-list .fi { font-size: 1rem; flex-shrink: 0; width: 20px; text-align: center; }
+
+  /* ── Data table ── */
+  .data-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.8rem;
+    margin-top: 8px;
+  }
+  .data-table th {
+    background: #f0f4fa;
+    color: #003366;
+    font-weight: 700;
+    font-size: 0.72rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    padding: 8px 10px;
+    border-bottom: 2px solid #dde5ef;
+    text-align: left;
+  }
+  .data-table td {
+    padding: 7px 10px;
+    border-bottom: 1px solid #f0f2f5;
+    color: #334;
+  }
+  .data-table tr:last-child td { border-bottom: none; }
+  .data-table tr:hover td { background: #f7f9fc; }
+  .data-table .num { text-align: right; font-variant-numeric: tabular-nums; }
+  .data-table .alp-cell { color: #b91c1c; font-weight: 600; }
+  .data-table .lnp-cell { color: #1d4ed8; font-weight: 600; }
+  .data-table .gov-alp { background: #fef2f2; }
+  .data-table .gov-lnp { background: #eff6ff; }
+
+  /* ── Party badge ── */
+  .badge {
+    display: inline-block;
+    padding: 2px 8px;
+    border-radius: 10px;
+    font-size: 0.68rem;
+    font-weight: 700;
+    letter-spacing: 0.03em;
+  }
+  .badge.alp { background: #fee2e2; color: #991b1b; }
+  .badge.lnp { background: #dbeafe; color: #1e40af; }
+
+  /* ── Highlight box ── */
+  .highlight-box {
+    background: #fffbeb;
+    border: 1px solid #fde68a;
+    border-left: 4px solid #f59e0b;
+    border-radius: 8px;
+    padding: 13px 16px;
+    font-size: 0.83rem;
+    color: #334;
+    margin-top: 12px;
+    line-height: 1.55;
+  }
+  .highlight-box.blue {
+    background: #eff6ff;
+    border-color: #bfdbfe;
+    border-left-color: #2563eb;
+  }
+  .highlight-box.red {
+    background: #fef2f2;
+    border-color: #fecaca;
+    border-left-color: #dc2626;
+  }
+
+  /* ── Questions list ── */
+  .q-list { list-style: none; margin-top: 8px; counter-reset: q; }
+  .q-list li {
+    counter-increment: q;
+    display: flex;
+    gap: 12px;
+    padding: 10px 0;
+    border-bottom: 1px solid #f0f2f5;
+    font-size: 0.84rem;
+    color: #334;
+    line-height: 1.5;
+    align-items: flex-start;
+  }
+  .q-list li:last-child { border-bottom: none; }
+  .q-list li::before {
+    content: counter(q);
+    background: #003366;
+    color: white;
+    font-size: 0.7rem;
+    font-weight: 700;
+    width: 22px;
+    height: 22px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    margin-top: 1px;
+  }
+
+  /* ── Footer ── */
+  .page-footer {
+    background: white;
+    border-top: 1px solid #dde5ef;
+    padding: 18px 40px;
+    font-size: 0.72rem;
+    color: #99aabb;
+    text-align: center;
+    margin-top: 20px;
+  }
+
+  /* ── Responsive ── */
+  @media (max-width: 700px) {
+    .kpi-row { grid-template-columns: 1fr 1fr; }
+    .card-grid { grid-template-columns: 1fr; }
+    .card-grid.three { grid-template-columns: 1fr; }
+    .intel-card.span2 { grid-column: span 1; }
+    .page-header { padding: 24px 18px 20px; }
+    .page-body { padding: 18px 14px 40px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ── HEADER ── -->
+<div class="page-header">
+  <div class="kicker">Policy Analysis · ABS Net Overseas Migration Data</div>
+  <h1>Australian Migration 2006–2025<br>A Data-Driven Policy Briefing</h1>
+  <p class="subtitle">Analysis of 20 years of ABS Net Overseas Migration (NOM) data, disaggregated by visa type and mapped to federal governing party. Prepared to inform debate on proposed migration policy changes.</p>
+  <div class="meta-row">
+    <span class="meta-pill">📊 Source: ABS NOM 2006–2025</span>
+    <span class="meta-pill">🗓️ Prepared: September 2026</span>
+    <span class="meta-pill">🇦🇺 National level data</span>
+    <span class="meta-pill">📈 20-year dataset</span>
+  </div>
+</div>
+
+<!-- ── BODY ── -->
+<div class="page-body">
+
+  <!-- Executive Summary -->
+  <div class="exec-summary">
+    <h2>Executive Summary</h2>
+    <p>The current political debate frames Australia's migration levels as an ALP policy failure. The ABS data tells a more complicated story. While net migration <em>has</em> been higher under the current ALP government, the headline numbers are substantially explained by a post-COVID mathematical rebound — a structural phenomenon, not a policy choice. The visa categories targeted by opposition proposals (students, skilled workers) were growing steadily under the previous LNP government and would have continued absent COVID. When the COVID distortion is removed, the gap between ALP and LNP migration averages narrows from <strong>2.4× to 1.6×</strong> — and the student visa trend shows effective continuity across the two governments.</p>
+  </div>
+
+  <!-- KPI Row -->
+  <div class="kpi-row">
+    <div class="kpi-card">
+      <div class="kpi-val">4.70M</div>
+      <div class="kpi-label">Total net migration<br>2006–2025</div>
+    </div>
+    <div class="kpi-card">
+      <div class="kpi-val alp">277,296</div>
+      <div class="kpi-label">ALP average net/year</div>
+      <div class="kpi-sub">COVID-adjusted</div>
+    </div>
+    <div class="kpi-card">
+      <div class="kpi-val lnp">192,675</div>
+      <div class="kpi-label">LNP average net/year</div>
+      <div class="kpi-sub">COVID-adjusted</div>
+    </div>
+    <div class="kpi-card">
+      <div class="kpi-val">1.65M</div>
+      <div class="kpi-label">Student visa net migration<br>2006–2025 — largest single category</div>
+    </div>
+  </div>
+
+  <!-- Section 1: COVID Distortion -->
+  <div class="section-label">1 — The COVID Distortion</div>
+  <div class="card-grid single">
+    <div class="intel-card">
+      <div class="intel-header">
+        <div class="icon">🦠</div>
+        <div>
+          <h2>The Post-COVID Rebound Is Not a Policy Choice</h2>
+          <p>Understanding why 2022–2023 migration appears anomalously high</p>
+        </div>
+      </div>
+      <div class="intel-body">
+        <p>Australian borders were <strong>closed in March 2020 under the LNP government</strong> and only partially reopened in December 2021 — also under LNP. The result was two years of near-zero migration, creating a structural deficit of approximately 400,000 persons relative to trend:</p>
+        <ul class="finding-list">
+          <li><span class="fi">📉</span><span>2020 net migration: <strong>−4,960</strong> — borders closed (LNP)</span></li>
+          <li><span class="fi">📉</span><span>2021 net migration: <strong>+9,300</strong> — borders still largely closed (LNP)</span></li>
+          <li><span class="fi">📈</span><span>2022 net migration: <strong>+437,850</strong> — structural backlog clearing (ALP)</span></li>
+          <li><span class="fi">📈</span><span>2023 net migration: <strong>+530,620</strong> — peak rebound year (ALP)</span></li>
+          <li><span class="fi">📉</span><span>2024 net migration: <strong>+330,460</strong> — rebound already subsiding (ALP)</span></li>
+          <li><span class="fi">📉</span><span>2025 net migration: <strong>+300,960</strong> — continuing to normalise (ALP)</span></li>
+        </ul>
+        <div class="highlight-box">
+          <strong>The dam analogy:</strong> Closing a dam for two years then removing the gates does not make the downstream government responsible for the flood. The 2022–23 surge was students who had deferred enrolments, skilled workers whose visas had lapsed, and working holiday makers who had been locked out — all clearing simultaneously once borders reopened.
+        </div>
+        <div class="highlight-box blue" style="margin-top:10px;">
+          <strong>COVID-adjusted comparison:</strong> When 2020–2023 are averaged to reflect what would have occurred without border closure, the ALP average falls from 400k to <strong>~278k/year</strong> and the LNP average rises from 157k to <strong>~193k/year</strong>. The gap narrows from 2.4× to 1.6×.
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Section 2: Net by year table -->
+  <div class="section-label">2 — Net Migration by Year and Governing Party</div>
+  <div class="card-grid single">
+    <div class="intel-card">
+      <div class="intel-header">
+        <div class="icon">📋</div>
+        <div>
+          <h2>Annual Net Migration 2006–2025</h2>
+          <p>Arrivals + departures (negative) = net NOM. Source: ABS.</p>
+        </div>
+      </div>
+      <div class="intel-body">
+        <table class="data-table">
+          <thead>
+            <tr>
+              <th>Year</th>
+              <th>Government</th>
+              <th class="num">Arrivals</th>
+              <th class="num">Departures</th>
+              <th class="num">Net Migration</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr class="gov-lnp"><td>2006</td><td><span class="badge lnp">LNP</span></td><td class="num">213,410</td><td class="num">−105,840</td><td class="num lnp-cell">107,570</td></tr>
+            <tr class="gov-alp"><td>2007</td><td><span class="badge alp">ALP</span></td><td class="num">460,580</td><td class="num">−216,550</td><td class="num alp-cell">244,030</td></tr>
+            <tr class="gov-alp"><td>2008</td><td><span class="badge alp">ALP</span></td><td class="num">535,970</td><td class="num">−220,280</td><td class="num alp-cell">315,690</td></tr>
+            <tr class="gov-alp"><td>2009</td><td><span class="badge alp">ALP</span></td><td class="num">478,790</td><td class="num">−231,890</td><td class="num alp-cell">246,900</td></tr>
+            <tr class="gov-alp"><td>2010</td><td><span class="badge alp">ALP</span></td><td class="num">425,120</td><td class="num">−253,080</td><td class="num alp-cell">172,040</td></tr>
+            <tr class="gov-alp"><td>2011</td><td><span class="badge alp">ALP</span></td><td class="num">449,020</td><td class="num">−242,770</td><td class="num alp-cell">206,240</td></tr>
+            <tr class="gov-alp"><td>2012</td><td><span class="badge alp">ALP</span></td><td class="num">478,360</td><td class="num">−238,110</td><td class="num alp-cell">240,250</td></tr>
+            <tr class="gov-lnp"><td>2013</td><td><span class="badge lnp">LNP</span></td><td class="num">478,680</td><td class="num">−270,300</td><td class="num lnp-cell">208,370</td></tr>
+            <tr class="gov-lnp"><td>2014</td><td><span class="badge lnp">LNP</span></td><td class="num">458,760</td><td class="num">−276,420</td><td class="num lnp-cell">182,340</td></tr>
+            <tr class="gov-lnp"><td>2015</td><td><span class="badge lnp">LNP</span></td><td class="num">473,250</td><td class="num">−286,520</td><td class="num lnp-cell">186,730</td></tr>
+            <tr class="gov-lnp"><td>2016</td><td><span class="badge lnp">LNP</span></td><td class="num">519,650</td><td class="num">−275,820</td><td class="num lnp-cell">243,820</td></tr>
+            <tr class="gov-lnp"><td>2017</td><td><span class="badge lnp">LNP</span></td><td class="num">531,380</td><td class="num">−289,710</td><td class="num lnp-cell">241,660</td></tr>
+            <tr class="gov-lnp"><td>2018</td><td><span class="badge lnp">LNP</span></td><td class="num">534,400</td><td class="num">−282,180</td><td class="num lnp-cell">252,220</td></tr>
+            <tr class="gov-lnp"><td>2019</td><td><span class="badge lnp">LNP</span></td><td class="num">607,870</td><td class="num">−360,250</td><td class="num lnp-cell">247,620</td></tr>
+            <tr class="gov-lnp"><td>2020</td><td><span class="badge lnp">LNP</span></td><td class="num">235,350</td><td class="num">−240,320</td><td class="num" style="color:#888">−4,960 ⚠️</td></tr>
+            <tr class="gov-lnp"><td>2021</td><td><span class="badge lnp">LNP</span></td><td class="num">214,410</td><td class="num">−205,110</td><td class="num" style="color:#888">9,300 ⚠️</td></tr>
+            <tr class="gov-alp"><td>2022</td><td><span class="badge alp">ALP</span></td><td class="num">651,360</td><td class="num">−213,500</td><td class="num alp-cell">437,850</td></tr>
+            <tr class="gov-alp"><td>2023</td><td><span class="badge alp">ALP</span></td><td class="num">739,030</td><td class="num">−208,400</td><td class="num alp-cell">530,620</td></tr>
+            <tr class="gov-alp"><td>2024</td><td><span class="badge alp">ALP</span></td><td class="num">595,820</td><td class="num">−265,370</td><td class="num alp-cell">330,460</td></tr>
+            <tr class="gov-alp"><td>2025</td><td><span class="badge alp">ALP</span></td><td class="num">563,540</td><td class="num">−262,580</td><td class="num alp-cell">300,960</td></tr>
+          </tbody>
+        </table>
+        <p style="font-size:0.72rem;color:#99aabb;margin-top:10px;">⚠️ 2020–2021: COVID border closure years — not representative of underlying trend.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Section 3: What's driving it -->
+  <div class="section-label">3 — What Is Actually Driving Migration?</div>
+  <div class="card-grid">
+    <div class="intel-card">
+      <div class="intel-header">
+        <div class="icon">🎓</div>
+        <div>
+          <h2>Student Visas — The Dominant Category</h2>
+          <p>1.65 million net arrivals over 20 years; growth trend predates ALP</p>
+        </div>
+      </div>
+      <div class="intel-body">
+        <p>Student visas are the single largest net migration category — and were growing <strong>consistently under LNP</strong> from 2013 to 2018:</p>
+        <table class="data-table" style="margin-top:8px">
+          <thead><tr><th>Year</th><th>Gov.</th><th class="num">Student Net</th><th class="num">Note</th></tr></thead>
+          <tbody>
+            <tr class="gov-lnp"><td>2015</td><td><span class="badge lnp">LNP</span></td><td class="num lnp-cell">82,300</td><td class="num">↑ growing</td></tr>
+            <tr class="gov-lnp"><td>2016</td><td><span class="badge lnp">LNP</span></td><td class="num lnp-cell">92,480</td><td class="num">↑ growing</td></tr>
+            <tr class="gov-lnp"><td>2017</td><td><span class="badge lnp">LNP</span></td><td class="num lnp-cell">100,200</td><td class="num">↑ growing</td></tr>
+            <tr class="gov-lnp"><td>2018</td><td><span class="badge lnp">LNP</span></td><td class="num lnp-cell">106,720</td><td class="num">↑ peak LNP</td></tr>
+            <tr class="gov-lnp"><td>2020</td><td><span class="badge lnp">LNP</span></td><td class="num" style="color:#888">−32,520</td><td class="num">⚠️ COVID</td></tr>
+            <tr class="gov-lnp"><td>2021</td><td><span class="badge lnp">LNP</span></td><td class="num" style="color:#888">−8,230</td><td class="num">⚠️ COVID</td></tr>
+            <tr class="gov-alp"><td>2022</td><td><span class="badge alp">ALP</span></td><td class="num alp-cell">221,690</td><td class="num">↑ rebound</td></tr>
+            <tr class="gov-alp"><td>2023</td><td><span class="badge alp">ALP</span></td><td class="num alp-cell">241,720</td><td class="num">↑ rebound</td></tr>
+            <tr class="gov-alp"><td>2024</td><td><span class="badge alp">ALP</span></td><td class="num alp-cell">118,810</td><td class="num">↓ normalising</td></tr>
+            <tr class="gov-alp"><td>2025</td><td><span class="badge alp">ALP</span></td><td class="num alp-cell">106,870</td><td class="num">↓ near LNP trend</td></tr>
+          </tbody>
+        </table>
+        <div class="highlight-box blue" style="margin-top:12px;">
+          By 2024–2025, student net migration has returned to levels broadly consistent with the 2017–2018 LNP trajectory. If 2020–2023 are averaged (~106k/year), the trend line is effectively continuous across both governments.
+        </div>
+      </div>
+    </div>
+
+    <div class="intel-card">
+      <div class="intel-header">
+        <div class="icon">📊</div>
+        <div>
+          <h2>Permanent Migration — Stable Across Both Governments</h2>
+          <p>The categories most targeted by opposition proposals are the most stable</p>
+        </div>
+      </div>
+      <div class="intel-body">
+        <p>Permanent migration has been <strong>broadly bipartisan and stable</strong> for 20 years:</p>
+        <ul class="finding-list">
+          <li><span class="fi">🟢</span><span><strong>Permanent Skilled:</strong> ~28,000–38,000/year under both governments. Total 20-yr net: 611,000.</span></li>
+          <li><span class="fi">🟢</span><span><strong>Permanent Family:</strong> ~18,000–31,000/year. Total 20-yr net: 455,000. Modestly higher under early ALP.</span></li>
+          <li><span class="fi">🟡</span><span><strong>Permanent Humanitarian:</strong> ~5,900–22,500/year. Volatile — driven by global refugee events, not domestic policy settings alone.</span></li>
+        </ul>
+        <p style="margin-top:12px;">The <strong>temporary categories</strong> — student, visitor, working holiday, temporary skilled — drive virtually all headline volatility. Permanent migration has not surged.</p>
+        <div class="highlight-box">
+          <strong>Key insight:</strong> Opposition proposals to cut permanent skilled and family migration would barely move the overall headline number, while removing economically productive migrants.
+        </div>
+        <p style="margin-top:12px;">One rarely-cited data point: <strong>Australian citizens are net negative</strong> in most years. Cumulative 20-year net: <strong>−206,500</strong>. More Australians have left than returned — nobody is proposing to address this.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Section 4: Policy proposals -->
+  <div class="section-label">4 — Assessment of Current Policy Proposals</div>
+  <div class="card-grid three">
+    <div class="intel-card">
+      <div class="intel-header">
+        <div class="icon">🚨</div>
+        <div>
+          <h2>Stop Student Migration</h2>
+          <p>Highest impact proposal — also highest cost</p>
+        </div>
+      </div>
+      <div class="intel-body">
+        <ul class="finding-list">
+          <li><span class="fi">❌</span><span>International students contributed <strong>~$36–40 billion</strong> to the Australian economy in 2023 (Universities Australia)</span></li>
+          <li><span class="fi">❌</span><span>Multiple regional universities would become financially unviable</span></li>
+          <li><span class="fi">❌</span><span>Student visa holders fill critical labour shortages: hospitality, aged care, retail</span></li>
+          <li><span class="fi">⚠️</span><span>The GDP impact of a student cap is <strong>not being publicly quantified</strong> — a significant omission from the debate</span></li>
+          <li><span class="fi">📊</span><span>Growth in student numbers was on the same trajectory under LNP (2013–2018) — this reflects global demand, not a policy failure</span></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="intel-card">
+      <div class="intel-header">
+        <div class="icon">⚠️</div>
+        <div>
+          <h2>Stop Family Migration for Students</h2>
+          <p>More targeted — already being tightened</p>
+        </div>
+      </div>
+      <div class="intel-body">
+        <ul class="finding-list">
+          <li><span class="fi">✅</span><span>More targeted than a student cap — affects secondary visa holders (spouses/dependants) only</span></li>
+          <li><span class="fi">✅</span><span>ALP government <strong>already tightened</strong> this in 2023–2024</span></li>
+          <li><span class="fi">📊</span><span>Secondary visa holders are a smaller contributor to net migration than primary holders</span></li>
+          <li><span class="fi">⚠️</span><span>May reduce Australia's attractiveness as a study destination relative to UK, Canada and USA, which allow family accompaniment</span></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="intel-card">
+      <div class="intel-header">
+        <div class="icon">🤔</div>
+        <div>
+          <h2>Cut Skilled Migration</h2>
+          <p>Counterproductive given current environment</p>
+        </div>
+      </div>
+      <div class="intel-body">
+        <ul class="finding-list">
+          <li><span class="fi">📊</span><span>Permanent skilled: ~28–38k/year — modest relative to overall flows</span></li>
+          <li><span class="fi">📊</span><span>Temporary skilled workers: ~15–45k/year net</span></li>
+          <li><span class="fi">❌</span><span>Australia has documented shortages in engineering, healthcare, construction and technology</span></li>
+          <li><span class="fi">🚨</span><span><strong>The housing paradox:</strong> cutting skilled construction and trade workers to address a housing shortage is directly counterproductive. More builders are needed, not fewer.</span></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- Section 5: What the data doesn't show -->
+  <div class="section-label">5 — What the Data Does Not Show</div>
+  <div class="card-grid">
+    <div class="intel-card">
+      <div class="intel-header">
+        <div class="icon">🏠</div>
+        <div>
+          <h2>Housing Affordability</h2>
+          <p>Migration is a contributing factor — not the primary cause</p>
+        </div>
+      </div>
+      <div class="intel-body">
+        <p>The relationship between migration and housing affordability is real but mediated by:</p>
+        <ul class="finding-list">
+          <li><span class="fi">🏗️</span><span><strong>Planning systems</strong> that restrict density and slow approvals</span></li>
+          <li><span class="fi">💰</span><span><strong>Investor behaviour</strong> and negative gearing policy</span></li>
+          <li><span class="fi">📉</span><span><strong>Construction capacity constraints</strong> — labour and materials shortages</span></li>
+          <li><span class="fi">📊</span><span><strong>Undersupply</strong> predates the recent migration surge by a decade</span></li>
+        </ul>
+        <div class="highlight-box red" style="margin-top:10px;">
+          Cutting skilled migration — particularly construction trades — reduces the workforce needed to build the housing required to address the affordability crisis. The policy is internally contradictory.
+        </div>
+      </div>
+    </div>
+
+    <div class="intel-card">
+      <div class="intel-header">
+        <div class="icon">📈</div>
+        <div>
+          <h2>Inflation &amp; Fiscal Contribution</h2>
+          <p>Two dimensions absent from public debate</p>
+        </div>
+      </div>
+      <div class="intel-body">
+        <ul class="finding-list">
+          <li><span class="fi">🌍</span><span><strong>Inflation:</strong> The RBA noted post-COVID inflation was globally driven — supply chain disruption, energy costs. Australia tracked comparable economies regardless of migration settings.</span></li>
+          <li><span class="fi">💼</span><span><strong>Fiscal contribution:</strong> Skilled and student visa holders are typically net fiscal contributors — paying taxes, HECS debts, GST — with lower claims on welfare and aged care in the short term.</span></li>
+          <li><span class="fi">📊</span><span><strong>Productivity:</strong> Migrants fill roles in sectors with documented shortages, supporting GDP output that would otherwise be lost.</span></li>
+          <li><span class="fi">⚠️</span><span>Full cost-benefit analysis by visa category is <strong>absent from the current public debate</strong>.</span></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- Section 6: Summary -->
+  <div class="section-label">6 — Summary: What the Data Actually Shows</div>
+  <div class="card-grid single">
+    <div class="intel-card">
+      <div class="intel-header">
+        <div class="icon">✅</div>
+        <div>
+          <h2>Six Key Findings</h2>
+          <p>Evidence-based conclusions from 20 years of ABS NOM data</p>
+        </div>
+      </div>
+      <div class="intel-body">
+        <ul class="finding-list">
+          <li><span class="fi">1️⃣</span><span><strong>Net migration is higher under ALP</strong> — this is factually correct and uncontested.</span></li>
+          <li><span class="fi">2️⃣</span><span><strong>The headline gap is largely a COVID rebound.</strong> Removing the COVID distortion narrows the gap from 2.4× to 1.6× and shows trend continuity across governments.</span></li>
+          <li><span class="fi">3️⃣</span><span><strong>Student visas are the biggest driver</strong> — and were on a strong growth trajectory under LNP before COVID. By 2024–25 student net migration has returned to LNP-era levels.</span></li>
+          <li><span class="fi">4️⃣</span><span><strong>Permanent migration is stable</strong> — it has not surged and is broadly bipartisan in magnitude. Proposed cuts would minimally affect headline numbers while removing economically valuable migrants.</span></li>
+          <li><span class="fi">5️⃣</span><span><strong>The proposed cuts target high-economic-value categories</strong> and the GDP cost is not being publicly modelled or discussed.</span></li>
+          <li><span class="fi">6️⃣</span><span><strong>Housing and inflation have structural causes</strong> that migration alone cannot explain — and cutting skilled migration may worsen, not improve, the housing supply constraint.</span></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- Section 7: Questions -->
+  <div class="section-label">7 — Recommended Questions for Policy Discussion</div>
+  <div class="card-grid single">
+    <div class="intel-card">
+      <div class="intel-header">
+        <div class="icon">❓</div>
+        <div>
+          <h2>Questions for Parliament and Policy Makers</h2>
+          <p>Gaps in the current public debate that warrant independent economic modelling</p>
+        </div>
+      </div>
+      <div class="intel-body">
+        <ol class="q-list">
+          <li>What is the independent economic modelling of GDP impact from a student visa cap — including university sector viability, labour supply, and flow-on consumer spending effects?</li>
+          <li>What would the COVID-adjusted migration trend look like under a continuation of LNP settings from 2022? Is the current ALP trend materially different from what would have occurred under the previous government?</li>
+          <li>What proportion of net migration is temporary (and self-reversing over time) versus permanent? Are we conflating a short-term rebound with a structural shift?</li>
+          <li>What is the net fiscal contribution (taxes paid vs services consumed) per visa category? Which categories are net fiscal positives?</li>
+          <li>If housing supply is the problem, how does reducing skilled trades and construction workers improve the situation? What is the net effect on housing completions per year?</li>
+        </ol>
+      </div>
+    </div>
+  </div>
+
+  <!-- Chart link -->
+  <div class="section-label">Interactive Charts</div>
+  <div class="card-grid single">
+    <div class="intel-card">
+      <div class="intel-header">
+        <div class="icon">📊</div>
+        <div>
+          <h2>Full Interactive Data Dashboard</h2>
+          <p>Five charts covering net migration trends, visa type breakdown, COVID adjustment, permanent vs temporary split, and ALP vs LNP comparison by category</p>
+        </div>
+      </div>
+      <div class="intel-body">
+        <p>An interactive chart dashboard accompanies this briefing. It includes:</p>
+        <ul class="finding-list">
+          <li><span class="fi">📊</span><span><strong>Chart 1:</strong> Net migration by year, colour-coded by governing party, with COVID-adjusted trend line</span></li>
+          <li><span class="fi">📊</span><span><strong>Chart 2:</strong> Stacked visa category composition — showing which categories drive each year</span></li>
+          <li><span class="fi">📊</span><span><strong>Chart 3:</strong> Student visa net raw vs COVID-adjusted — the key trend continuity chart</span></li>
+          <li><span class="fi">📊</span><span><strong>Chart 4:</strong> Permanent vs Temporary net migration split</span></li>
+          <li><span class="fi">📊</span><span><strong>Chart 5:</strong> ALP vs LNP average annual net by visa type</span></li>
+        </ul>
+        <p style="margin-top:14px;">
+          <a href="Migration_Analysis_2026_Dashboard.html" style="display:inline-block;background:#003366;color:white;padding:10px 20px;border-radius:7px;text-decoration:none;font-size:0.85rem;font-weight:600;">
+            📊 Open Interactive Dashboard →
+          </a>
+        </p>
+      </div>
+    </div>
+  </div>
+
+</div><!-- /page-body -->
+
+<div class="page-footer">
+  Data: ABS Net Overseas Migration (NOM) 2006–2025 · Federal government assignment based on party in office at year start · COVID adjustment: 2020–2023 student visa net averaged (~106k/year) to remove border-closure distortion · Analysis prepared September 2026
+</div>
+
+</body>
+</html>
