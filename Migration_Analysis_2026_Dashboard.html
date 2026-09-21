@@ -153,7 +153,7 @@
   <!-- Chart 8 — Media narrative vs data reality (NEW) -->
   <div class="card full">
     <h2>Chart 8 — Media Narrative vs Data Reality: 2021–25 Average Annual Student Visa Arrivals ✦ New</h2>
-    <p class="note"><strong>Somalia and Lebanon do not appear in ABS student visa data at measurable volumes. Iran shows modest growth (+74%) from a small base — not a surge by any standard. The countries most cited in social cohesion and crime discourse are not the countries driving student visa growth. The political narrative is largely disconnected from the visa data.</strong> Colour: blue = established large sources; orange = surge countries; purple = Nepal/Vietnam; red = media-cited countries.</p>
+    <p class="note"><strong>Somalia and Lebanon do not appear in ABS student visa data at measurable volumes. Iran shows moderate growth (+97%) from a small base (538 → 1,060 avg/yr) — not a surge by any standard. The countries most cited in social cohesion and crime discourse are not the countries driving student visa growth. The political narrative is largely disconnected from the visa data.</strong> Colour: blue = established large sources; orange = surge countries; purple = Nepal/Vietnam; red = media-cited countries.</p>
     <canvas id="chart8" class="canvas-tall"></canvas>
   </div>
 
@@ -217,15 +217,16 @@ const primary_net   = [2990,28040,49060,67980,73440,82310,89400,93840,39620,-314
 const secondary_net = [590,4710,6800,9870,8860,10170,10800,12880,12220,-1120,1160,22770,35550,16590,14030]; // Source: ABS Tablebuilder
 
 // Chart 7 — source country surge lines (2006-2025)
+// Source: ABS Tablebuilder Migration dataset (verified September 2026)
 const countryData = {
-  'Nepal':       [1080,6060,9060,7220,740,830,1770,4550,6240,5490,9050,16200,21880,15760,4100,4050,25660,19140,10650,18810],
-  'Philippines': [320,920,1330,1740,1710,1940,2490,3240,3020,2840,2680,2220,3830,7470,1330,960,10940,16880,5750,4410],
-  'Colombia':    [530,1710,1970,1990,1360,1360,1790,2030,2010,2710,3690,4610,5100,6740,2260,40,12600,17910,3100,1180],
-  'Bangladesh':  [920,2440,1340,1890,1250,1280,1130,1220,1560,1790,1430,2020,2000,1850,790,690,3740,7230,9030,12260],
-  'Pakistan':    [570,1970,1850,2230,2200,2590,3070,2940,3860,3470,2770,3210,3660,4050,1680,2230,6470,10100,3320,2000],
-  'Sri Lanka':   [970,2740,3000,2010,1210,1080,1140,1370,1770,2070,2890,3580,4090,4700,1650,1080,5210,8270,6790,5720],
-  'Brazil':      [980,2240,2760,2120,1780,1780,1890,3770,3730,5350,6400,7570,6080,5600,1360,80,8670,8520,4860,2830],
-  'Kenya':       [160,490,560,510,420,300,430,550,620,750,1110,1180,1050,830,290,260,2840,5280,1510,2300],
+  'Nepal':       [1060,6030,8960,6970,170,360,1510,4290,5990,5240,8800,15990,21570,15250,3040,3670,25400,18880,10300,18520],
+  'Philippines': [180,800,1230,1550,1480,1670,2180,2930,2660,2420,2210,1790,3370,6860,650,550,10680,16510,4610,2650],
+  'Colombia':    [470,1550,1720,1540,800,850,1340,1420,1250,1980,2970,3650,3850,5220,1280,-760,12050,17390,1250,-1420],
+  'Bangladesh':  [810,2250,1130,1700,1010,960,820,880,1260,1430,1070,1760,1660,1420,320,370,3570,6970,8740,11960],
+  'Pakistan':    [500,1810,1640,2020,1910,2260,2750,2590,3480,3110,2330,2790,3220,3480,640,1780,6260,9900,3020,1730],
+  'Sri Lanka':   [870,2570,2790,1760,820,800,860,1050,1490,1760,2570,3240,3710,4200,1020,760,5110,8100,6440,5330],
+  'Brazil':      [820,1850,2250,1360,870,860,1150,2970,1460,3630,4750,6060,3910,2890,-840,-740,8140,7860,3590,1360],
+  'Kenya':       [100,400,480,430,330,190,340,450,510,630,1010,1060,940,710,200,200,2810,5230,1430,2210],
 };
 const countryColors = {
   'Nepal':       '#a78bfa',
@@ -239,20 +240,23 @@ const countryColors = {
 };
 
 // Chart 8 — media narrative vs data
+// Source: ABS Tablebuilder Migration dataset — AVG 2021–25/yr (verified September 2026)
 // sorted descending by value
 const chart8Data = [
-  { label: 'China',       val: 33546, color: '#2d6fa4' },
-  { label: 'India',       val: 31300, color: '#2d6fa4' },
-  { label: 'Nepal',       val: 15662, color: '#a78bfa' },
-  { label: 'Vietnam',     val: 6112,  color: '#a78bfa' },
-  { label: 'Philippines', val: 7788,  color: '#f97316' },
-  { label: 'Colombia',    val: 6966,  color: '#f97316' },
-  { label: 'Bangladesh',  val: 6590,  color: '#f97316' },
-  { label: 'Sri Lanka',   val: 5414,  color: '#f97316' },
-  { label: 'Brazil',      val: 4992,  color: '#f97316' },
-  { label: 'Pakistan',    val: 4824,  color: '#f97316' },
-  { label: 'Kenya',       val: 2438,  color: '#f97316' },
-  { label: 'Iran',        val: 1106,  color: '#e05c5c' },
+  { label: 'China',       val: 19028, color: '#2d6fa4' },
+  { label: 'India',       val: 29650, color: '#2d6fa4' },
+  { label: 'Nepal',       val: 15354, color: '#a78bfa' },
+  { label: 'Vietnam',     val: 5162,  color: '#a78bfa' },
+  { label: 'Philippines', val: 7000,  color: '#f97316' },
+  { label: 'Colombia',    val: 5702,  color: '#f97316' },
+  { label: 'Bangladesh',  val: 6322,  color: '#f97316' },
+  { label: 'Sri Lanka',   val: 5148,  color: '#f97316' },
+  { label: 'Brazil',      val: 4042,  color: '#f97316' },
+  { label: 'Pakistan',    val: 4538,  color: '#f97316' },
+  { label: 'Kenya',       val: 2376,  color: '#f97316' },
+  { label: 'Iran',        val: 1060,  color: '#e05c5c' },
+  { label: 'Nigeria',     val: 894,   color: '#f97316' },
+  { label: 'Bhutan',      val: 5594,  color: '#f97316' },
   { label: 'Somalia',     val: 0,     color: '#e05c5c' },
   { label: 'Lebanon',     val: 0,     color: '#e05c5c' },
 ].sort((a,b) => b.val - a.val);
