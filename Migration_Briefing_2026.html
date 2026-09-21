@@ -259,6 +259,79 @@
     border-color: #fecaca;
     border-left-color: #dc2626;
   }
+  .highlight-box.green {
+    background: #f0fdf4;
+    border-color: #bbf7d0;
+    border-left-color: #16a34a;
+  }
+  .highlight-box.purple {
+    background: #faf5ff;
+    border-color: #e9d5ff;
+    border-left-color: #7c3aed;
+  }
+
+  /* ── Comparison table for international ── */
+  .comparison-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.78rem;
+    margin-top: 10px;
+  }
+  .comparison-table th {
+    background: #f0f4fa;
+    color: #003366;
+    font-weight: 700;
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    padding: 8px 10px;
+    border-bottom: 2px solid #dde5ef;
+    text-align: left;
+  }
+  .comparison-table td {
+    padding: 8px 10px;
+    border-bottom: 1px solid #f0f2f5;
+    vertical-align: top;
+    line-height: 1.4;
+  }
+  .comparison-table tr:last-child td { border-bottom: none; }
+  .comparison-table tr:hover td { background: #f7f9fc; }
+  .pill-permissive { background: #dcfce7; color: #166534; padding: 2px 8px; border-radius: 10px; font-size: 0.68rem; font-weight: 700; white-space: nowrap; }
+  .pill-moderate  { background: #fef9c3; color: #854d0e; padding: 2px 8px; border-radius: 10px; font-size: 0.68rem; font-weight: 700; white-space: nowrap; }
+  .pill-strict    { background: #fee2e2; color: #991b1b; padding: 2px 8px; border-radius: 10px; font-size: 0.68rem; font-weight: 700; white-space: nowrap; }
+
+  /* ── Country-surge table ── */
+  .surge-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.78rem;
+    margin-top: 10px;
+  }
+  .surge-table th {
+    background: #f0f4fa;
+    color: #003366;
+    font-weight: 700;
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    padding: 7px 10px;
+    border-bottom: 2px solid #dde5ef;
+    text-align: left;
+  }
+  .surge-table td {
+    padding: 6px 10px;
+    border-bottom: 1px solid #f0f2f5;
+    vertical-align: middle;
+  }
+  .surge-table tr:last-child td { border-bottom: none; }
+  .surge-table tr:hover td { background: #f7f9fc; }
+  .surge-table .num { text-align: right; font-variant-numeric: tabular-nums; }
+  .surge-badge { display: inline-block; padding: 2px 8px; border-radius: 10px; font-size: 0.68rem; font-weight: 700; }
+  .surge-high   { background: #fef3c7; color: #b45309; }
+  .surge-extreme { background: #fee2e2; color: #991b1b; }
+  .surge-media  { background: #f5f3ff; color: #6d28d9; }
+  .surge-none   { background: #f1f5f9; color: #64748b; }
+  .surge-stable { background: #dcfce7; color: #166534; }
 
   /* ── Questions list ── */
   .q-list { list-style: none; margin-top: 8px; counter-reset: q; }
@@ -647,6 +720,294 @@
     </div>
   </div>
 
+  <!-- ══════════════════════════════════════════════════════════════ -->
+  <!-- NEW SECTION 8 — Primary vs Secondary Student Visas           -->
+  <!-- ══════════════════════════════════════════════════════════════ -->
+  <div class="section-label">8 — Primary vs Secondary Student Visas</div>
+  <div class="card-grid single">
+    <div class="intel-card">
+      <div class="intel-header">
+        <div class="icon">👨‍👩‍👧</div>
+        <div>
+          <h2>Primary vs Secondary (Dependant) Student Visa Net Migration 2011–2025</h2>
+          <p>Australia has historically been the most permissive Anglophone destination on secondary visa entitlements. International comparison and 2024 reform context.</p>
+        </div>
+      </div>
+      <div class="intel-body">
+        <p>Secondary student visa holders are spouses and dependent children accompanying a primary student. Australia's historical permissiveness in this area — granting unrestricted work rights to secondary holders whose primary student was enrolled at bachelor level or above — has been a structural attractor for household units seeking dual incomes through the education migration pathway.</p>
+
+        <table class="data-table" style="margin-top:12px">
+          <thead>
+            <tr>
+              <th>Year</th>
+              <th class="num">Primary Net</th>
+              <th class="num">Secondary Net</th>
+              <th class="num">Total</th>
+              <th class="num">Secondary %</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td>2011</td><td class="num">26,230</td><td class="num">3,970</td><td class="num">30,200</td><td class="num">13.1%</td></tr>
+            <tr><td>2012</td><td class="num">39,550</td><td class="num">6,300</td><td class="num">45,850</td><td class="num">13.7%</td></tr>
+            <tr><td>2013</td><td class="num">37,800</td><td class="num">6,020</td><td class="num">43,820</td><td class="num">13.7%</td></tr>
+            <tr><td>2014</td><td class="num">38,780</td><td class="num">5,860</td><td class="num">44,640</td><td class="num">13.1%</td></tr>
+            <tr><td>2015</td><td class="num">37,640</td><td class="num">6,040</td><td class="num">43,680</td><td class="num">13.8%</td></tr>
+            <tr><td>2016</td><td class="num">39,410</td><td class="num">5,980</td><td class="num">45,390</td><td class="num">13.2%</td></tr>
+            <tr><td>2017</td><td class="num">45,230</td><td class="num">6,510</td><td class="num">51,740</td><td class="num">12.6%</td></tr>
+            <tr><td>2018</td><td class="num">53,370</td><td class="num">6,560</td><td class="num">59,930</td><td class="num">10.9%</td></tr>
+            <tr><td>2019</td><td class="num">91,550</td><td class="num">7,260</td><td class="num">98,810</td><td class="num">7.3%</td></tr>
+            <tr><td>2020</td><td class="num">69,120</td><td class="num">5,970</td><td class="num">75,090</td><td class="num">7.9%</td></tr>
+            <tr><td>2021</td><td class="num">33,580</td><td class="num">3,850</td><td class="num">37,430</td><td class="num">10.3%</td></tr>
+            <tr><td>2022</td><td class="num">13,630</td><td class="num">2,340</td><td class="num">15,970</td><td class="num">14.7%</td></tr>
+            <tr><td>2023</td><td class="num">22,640</td><td class="num">2,740</td><td class="num">25,380</td><td class="num">10.8%</td></tr>
+            <tr><td>2024</td><td class="num">40,000</td><td class="num">4,670</td><td class="num">44,670</td><td class="num">10.5%</td></tr>
+            <tr><td>2025</td><td class="num">46,350</td><td class="num">5,410</td><td class="num">51,760</td><td class="num">10.5%</td></tr>
+          </tbody>
+        </table>
+
+        <div class="highlight-box blue" style="margin-top:16px;">
+          <strong>Pipeline effect:</strong> Each secondary visa holder is another person in the net stock accumulation. They enter via the primary student's visa decision but add independently to housing demand, labour market participation, and eventual PR pipeline pressure.
+        </div>
+
+        <p style="margin-top:16px;font-weight:600;color:#003366;">International comparison: dependant visa policy</p>
+        <table class="comparison-table" style="margin-top:8px">
+          <thead>
+            <tr>
+              <th>Country</th>
+              <th>Dependant visa access</th>
+              <th>Work rights for dependants</th>
+              <th>Stance</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>Australia (pre-2024)</strong></td>
+              <td>All levels — undergraduate and above</td>
+              <td>Unrestricted if primary at bachelor+ level</td>
+              <td><span class="pill-permissive">Most permissive</span></td>
+            </tr>
+            <tr>
+              <td><strong>Australia (post-2024)</strong></td>
+              <td>PhD; Pacific/ASEAN; govt-sponsored; onshore families protected</td>
+              <td>Curtailed for new non-exempt applicants below master's level</td>
+              <td><span class="pill-moderate">Moving toward moderate</span></td>
+            </tr>
+            <tr>
+              <td><strong>United Kingdom</strong></td>
+              <td>PhD and research-level only (since Jan 2024)</td>
+              <td>Limited; taught masters and undergrads barred from bringing dependants</td>
+              <td><span class="pill-strict">Strict</span></td>
+            </tr>
+            <tr>
+              <td><strong>Canada</strong></td>
+              <td>Mainly spouses of master's and doctoral students</td>
+              <td>Open work rights for eligible spouses; undergrad dependants excluded</td>
+              <td><span class="pill-moderate">Moderate</span></td>
+            </tr>
+            <tr>
+              <td><strong>United States</strong></td>
+              <td>F-2/M-2 available at all qualification levels</td>
+              <td>Strictly prohibited — dependants cannot work under any circumstances</td>
+              <td><span class="pill-strict">Strictest on work rights</span></td>
+            </tr>
+          </tbody>
+        </table>
+
+        <div class="highlight-box" style="margin-top:14px;">
+          <strong>Minister Burke's 2024 restrictions</strong> represent the right policy direction. Full implementation — removing unrestricted work rights below master's level for non-exempt applicants — would align Australia with the Canadian model. The exemptions for PhD students, Pacific/ASEAN nationals, government-sponsored students, and existing onshore families are appropriate and should be maintained to avoid stranding people mid-pipeline.
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════════════════════════════════ -->
+  <!-- NEW SECTION 9 — Country-of-Origin Shifts                     -->
+  <!-- ══════════════════════════════════════════════════════════════ -->
+  <div class="section-label">9 — Country-of-Origin Shifts: Data vs Media Narrative</div>
+  <div class="card-grid single">
+    <div class="intel-card">
+      <div class="intel-header">
+        <div class="icon">🌏</div>
+        <div>
+          <h2>Surge Countries vs Media-Cited Countries</h2>
+          <p>Temporary student visa arrivals: comparing 2006–10 average vs 2021–25 average. Source: ABS Tablebuilder.</p>
+        </div>
+      </div>
+      <div class="intel-body">
+        <p>The geographic composition of Australia's student visa arrivals has shifted substantially. The countries driving growth are not the countries cited in political discourse about social cohesion and crime. This is not a political observation — it is a straightforward empirical finding with direct policy implications.</p>
+
+        <table class="surge-table" style="margin-top:12px">
+          <thead>
+            <tr>
+              <th>Country</th>
+              <th class="num">Avg 2006–10 /yr</th>
+              <th class="num">Avg 2021–25 /yr</th>
+              <th class="num">Multiplier</th>
+              <th>Category</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>Bhutan</strong></td>
+              <td class="num">138</td>
+              <td class="num">5,806</td>
+              <td class="num"><strong>42x</strong></td>
+              <td><span class="surge-badge surge-extreme">Outlier surge</span></td>
+            </tr>
+            <tr>
+              <td><strong>Philippines</strong></td>
+              <td class="num">1,204</td>
+              <td class="num">7,788</td>
+              <td class="num"><strong>6.5x</strong></td>
+              <td><span class="surge-badge surge-high">Surge</span></td>
+            </tr>
+            <tr>
+              <td><strong>Kenya</strong></td>
+              <td class="num">428</td>
+              <td class="num">2,438</td>
+              <td class="num"><strong>5.7x</strong></td>
+              <td><span class="surge-badge surge-high">Surge</span></td>
+            </tr>
+            <tr>
+              <td><strong>Colombia</strong></td>
+              <td class="num">1,512</td>
+              <td class="num">6,966</td>
+              <td class="num"><strong>4.6x</strong></td>
+              <td><span class="surge-badge surge-high">Surge</span></td>
+            </tr>
+            <tr>
+              <td><strong>Bangladesh</strong></td>
+              <td class="num">1,568</td>
+              <td class="num">6,590</td>
+              <td class="num"><strong>4.2x</strong></td>
+              <td><span class="surge-badge surge-high">Surge</span></td>
+            </tr>
+            <tr>
+              <td><strong>Nepal</strong></td>
+              <td class="num">4,832</td>
+              <td class="num">15,662</td>
+              <td class="num"><strong>3.2x</strong></td>
+              <td><span class="surge-badge surge-high">Surge</span></td>
+            </tr>
+            <tr>
+              <td><strong>Pakistan</strong></td>
+              <td class="num">1,764</td>
+              <td class="num">4,824</td>
+              <td class="num"><strong>2.7x</strong></td>
+              <td><span class="surge-badge surge-high">Surge</span></td>
+            </tr>
+            <tr>
+              <td><strong>Sri Lanka</strong></td>
+              <td class="num">1,986</td>
+              <td class="num">5,414</td>
+              <td class="num"><strong>2.7x</strong></td>
+              <td><span class="surge-badge surge-high">Surge</span></td>
+            </tr>
+            <tr>
+              <td><strong>Brazil</strong></td>
+              <td class="num">1,976</td>
+              <td class="num">4,992</td>
+              <td class="num"><strong>2.5x</strong></td>
+              <td><span class="surge-badge surge-high">Surge</span></td>
+            </tr>
+            <tr style="border-top:2px solid #e0e7ef">
+              <td><strong>Korea, South</strong></td>
+              <td class="num">—</td>
+              <td class="num">—</td>
+              <td class="num"><strong>−64%</strong></td>
+              <td><span class="surge-badge surge-stable">Declining</span></td>
+            </tr>
+            <tr>
+              <td><strong>Malaysia</strong></td>
+              <td class="num">—</td>
+              <td class="num">—</td>
+              <td class="num"><strong>−43%</strong></td>
+              <td><span class="surge-badge surge-stable">Declining</span></td>
+            </tr>
+            <tr>
+              <td><strong>Saudi Arabia</strong></td>
+              <td class="num">—</td>
+              <td class="num">—</td>
+              <td class="num"><strong>−45%</strong></td>
+              <td><span class="surge-badge surge-stable">Declining</span></td>
+            </tr>
+            <tr style="border-top:2px solid #e0e7ef">
+              <td><strong>Iran</strong></td>
+              <td class="num">636</td>
+              <td class="num">1,106</td>
+              <td class="num"><strong>+74%</strong></td>
+              <td><span class="surge-badge surge-media">Media-cited / modest</span></td>
+            </tr>
+            <tr>
+              <td><strong>Somalia</strong></td>
+              <td class="num">—</td>
+              <td class="num">—</td>
+              <td class="num">n/a</td>
+              <td><span class="surge-badge surge-none">Not in data</span></td>
+            </tr>
+            <tr>
+              <td><strong>Lebanon</strong></td>
+              <td class="num">—</td>
+              <td class="num">—</td>
+              <td class="num">n/a</td>
+              <td><span class="surge-badge surge-none">Not in data</span></td>
+            </tr>
+          </tbody>
+        </table>
+
+        <div class="highlight-box red" style="margin-top:16px;">
+          <strong>The disconnect is empirically clear:</strong> The countries most frequently cited in political discourse about social cohesion and crime — Somalia, Lebanon, Iran — do not appear as significant contributors to student visa growth. Somalia and Lebanon do not appear in ABS student visa data at measurable volumes. Iran shows a modest +74% increase from a small base — not a surge by any standard. Policy interventions calibrated to the political narrative rather than the data will be poorly targeted, simultaneously too broad (affecting large legitimate education cohorts) and too narrow (not addressing the stated concerns).
+        </div>
+
+        <p style="margin-top:16px;font-weight:600;color:#003366;">Why are the surge countries growing?</p>
+        <ul class="finding-list" style="margin-top:8px">
+          <li><span class="fi">🗣️</span><span><strong>English-medium education or strong English uptake.</strong> The Philippines has English-medium tertiary education. Bangladesh, Nepal, Pakistan, Sri Lanka retain English from British colonial systems. Brazil and Colombia have seen rapid English expansion via outsourcing and technology sectors. Kenya has one of the highest English literacy rates in sub-Saharan Africa.</span></li>
+          <li><span class="fi">🤝</span><span><strong>Active Australian education agent networks post-2010.</strong> Following the Bradley Review and recovery from the 2009–10 student welfare crisis, agent networks expanded commercially into new source markets. The countries showing rapid growth are those where Australian agent presence expanded in 2012–2018.</span></li>
+          <li><span class="fi">📉</span><span><strong>Weak local graduate employment markets.</strong> Nepal, Bangladesh, and Pakistan all have graduate unemployment and underemployment rates that make the Australian student visa financially rational even accounting for financing costs. The "student visa as migration vehicle" is a rational calculation when local alternatives are worse.</span></li>
+          <li><span class="fi">🌐</span><span><strong>Diaspora network effects.</strong> Once a critical mass of a nationality's citizens establishes itself in Australia, information asymmetry about the migration pathway falls sharply. Each cohort facilitates the next — diaspora accumulation reduces perceived risk and lowers transaction costs for subsequent migrants.</span></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════════════════════════════════ -->
+  <!-- NEW SECTION 10 — The Accumulation Problem                    -->
+  <!-- ══════════════════════════════════════════════════════════════ -->
+  <div class="section-label">10 — The Accumulation Problem</div>
+  <div class="card-grid single">
+    <div class="intel-card">
+      <div class="intel-header">
+        <div class="icon">📦</div>
+        <div>
+          <h2>1.25M+ Net Stock: A Pipeline Indicator, Not a Compliance Metric</h2>
+          <p>Why the student visa stock has accumulated — and what structural reform would actually address it</p>
+        </div>
+      </div>
+      <div class="intel-body">
+        <p>The net student visa stock has accumulated to over <strong>1.25 million</strong> since 2011 (ABS Tablebuilder). This figure generates significant political anxiety but is routinely misinterpreted. It does not primarily reflect overstaying or non-compliance. It reflects the deliberate design of Australia's multi-stage visa transition pipeline.</p>
+
+        <div class="highlight-box purple" style="margin-top:12px;">
+          <strong>The pipeline mechanics:</strong> When a student visa holder transitions onshore to a Temporary Graduate (485) visa, then to a Temporary Skill Shortage (482) visa, and eventually to permanent residence — no departure is ever recorded against the student visa category. Each step forward through the pipeline is administratively invisible as a departure. The 1.25M+ figure counts everyone who entered on a student visa and has not yet physically departed or been recorded as a PR grant against the student category.
+        </div>
+
+        <p style="margin-top:14px;font-weight:600;color:#003366;">Five structural reasons for accumulation:</p>
+        <ul class="finding-list" style="margin-top:8px">
+          <li><span class="fi">1️⃣</span><span><strong>Visa hopping pipeline.</strong> Student → Temporary Graduate (485) → Skilled/Employer Sponsored → PR. Each stage is an onshore transition with no departure required. The person moves through the pipeline but never exits the NOM stock.</span></li>
+          <li><span class="fi">2️⃣</span><span><strong>PR grants don't clear the student stock counter.</strong> Once PR is granted, no departure is recorded against the student visa category. The person has "succeeded" through the pipeline but remains counted in the accumulation figure.</span></li>
+          <li><span class="fi">3️⃣</span><span><strong>PR transition rates are higher than commonly cited.</strong> Older Treasury estimates suggested ~16% of student visa holders eventually reach PR [VERIFY]. Jobs and Skills Australia data suggests 35–50% for cohorts completing bachelor-level or above qualifications eventually transition — with 60%+ undergoing at least two visa changes before either departing or reaching PR.</span></li>
+          <li><span class="fi">4️⃣</span><span><strong>The "permanently temporary" cohort.</strong> The Grattan Institute's "graduates in limbo" framing captures a real phenomenon: a large cohort cycling through successive bridging visas and temporary work categories, accumulating the points, experience, or employer relationships needed to qualify for PR. This cohort has genuine claims on policy attention — not because they are non-compliant, but because prolonged limbo creates adverse labour market outcomes and wage exploitation risk.</span></li>
+          <li><span class="fi">5️⃣</span><span><strong>Bridging visas and invisible transitions.</strong> When a student applies onshore for a PR visa, they receive a Bridging Visa maintaining lawful status. Any departure during this period is recorded against the Bridging Visa, not the student visa. The student visa stock does not decrease even if the person briefly departs.</span></li>
+        </ul>
+
+        <div class="highlight-box green" style="margin-top:16px;">
+          <strong>The most effective structural reform:</strong> Requiring offshore lodgement for permanent residence applications by former student and Temporary Graduate visa holders — consistent with practice in the United States, United Kingdom, and Canada — would force a genuine departure decision at the PR conversion stage, reduce pipeline accumulation over time, and align Australia with international norms. This is primarily an administrative change and does not require legislative amendment for most visa categories. Volume caps on new student arrivals will reduce future cohorts but will not resolve the existing 1.25M+ stock for many years.
+        </div>
+
+        <p style="margin-top:14px;font-size:0.78rem;color:#667085;">Note: The accumulation figure should be read as a pipeline indicator only. It is not evidence of non-compliance. Any policy framing that treats the 1.25M+ figure as a "problem" of illegal overstaying will misdirect enforcement resources and produce politically visible but analytically empty results.</p>
+      </div>
+    </div>
+  </div>
+
   <!-- Chart link -->
   <div class="section-label">Interactive Charts</div>
   <div class="card-grid single">
@@ -655,7 +1016,7 @@
         <div class="icon">📊</div>
         <div>
           <h2>Full Interactive Data Dashboard</h2>
-          <p>Five charts covering net migration trends, visa type breakdown, COVID adjustment, permanent vs temporary split, and ALP vs LNP comparison by category</p>
+          <p>Eight charts covering net migration trends, visa type breakdown, COVID adjustment, permanent vs temporary split, ALP vs LNP comparison, primary/secondary student visas, country-of-origin surge analysis, and media narrative vs data reality</p>
         </div>
       </div>
       <div class="intel-body">
@@ -666,6 +1027,9 @@
           <li><span class="fi">📊</span><span><strong>Chart 3:</strong> Student visa net raw vs COVID-adjusted — the key trend continuity chart</span></li>
           <li><span class="fi">📊</span><span><strong>Chart 4:</strong> Permanent vs Temporary net migration split</span></li>
           <li><span class="fi">📊</span><span><strong>Chart 5:</strong> ALP vs LNP average annual net by visa type</span></li>
+          <li><span class="fi">📊</span><span><strong>Chart 6 (new):</strong> Primary vs Secondary student visa net 2011–2025</span></li>
+          <li><span class="fi">📊</span><span><strong>Chart 7 (new):</strong> Top source country surge trajectories 2006–2025</span></li>
+          <li><span class="fi">📊</span><span><strong>Chart 8 (new):</strong> Media narrative vs data reality — 2021–25 average arrivals by country</span></li>
         </ul>
         <p style="margin-top:14px;">
           <a href="Migration_Analysis_2026_Dashboard.html" style="display:inline-block;background:#003366;color:white;padding:10px 20px;border-radius:7px;text-decoration:none;font-size:0.85rem;font-weight:600;">
@@ -679,7 +1043,7 @@
 </div><!-- /page-body -->
 
 <div class="page-footer">
-  Data: ABS Net Overseas Migration (NOM) 2006–2025 · Federal government assignment based on party in office at year start · COVID adjustment: 2020–2023 student visa net averaged (~106k/year) to remove border-closure distortion · Analysis prepared September 2026
+  Data: ABS Net Overseas Migration (NOM) 2006–2025 · Federal government assignment based on party in office at year start · COVID adjustment: 2020–2023 student visa net averaged (~106k/year) to remove border-closure distortion · Sections 8–10 added September 2026 incorporating primary/secondary visa data, country-of-origin analysis, and pipeline accumulation framework · Analysis prepared September 2026
 </div>
 
 </body>

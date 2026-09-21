@@ -3,39 +3,74 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Australian Migration Analysis 2006–2025</title>
+<title>Australian Migration Analysis 2006–2025 — Dashboard</title>
 <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
 <style>
   * { box-sizing: border-box; margin: 0; padding: 0; }
-  body { font-family: 'Segoe UI', Arial, sans-serif; background: #0f1117; color: #e8eaf0; padding: 24px; }
+  body {
+    font-family: 'Segoe UI', Arial, sans-serif;
+    background: #0f1117;
+    color: #e8eaf0;
+    padding: 24px;
+  }
   h1 { font-size: 1.4rem; font-weight: 700; color: #fff; margin-bottom: 4px; }
   .subtitle { font-size: 0.82rem; color: #888; margin-bottom: 28px; }
   .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
-  .card { background: #1a1d27; border-radius: 12px; padding: 20px; border: 1px solid #2a2d3a; }
+  .card {
+    background: #1a1d27;
+    border-radius: 12px;
+    padding: 20px;
+    border: 1px solid #2a2d3a;
+  }
   .card.full { grid-column: 1 / -1; }
   .card h2 { font-size: 0.9rem; font-weight: 600; color: #b0b8cc; margin-bottom: 4px; }
-  .card .note { font-size: 0.72rem; color: #666; margin-bottom: 14px; }
-  .legend { display: flex; gap: 18px; margin-bottom: 12px; font-size: 0.75rem; }
-  .legend span { display: flex; align-items: center; gap: 5px; }
-  .dot { width: 10px; height: 10px; border-radius: 50%; display: inline-block; }
+  .card .note { font-size: 0.72rem; color: #666; margin-bottom: 14px; line-height: 1.45; }
+  .card .note strong { color: #888; }
+  .legend { display: flex; gap: 18px; margin-bottom: 12px; font-size: 0.75rem; flex-wrap: wrap; }
+  .legend span { display: flex; align-items: center; gap: 5px; color: #aaa; }
+  .dot { width: 10px; height: 10px; border-radius: 50%; display: inline-block; flex-shrink: 0; }
   .alp { background: #e05c5c; }
   .lnp { background: #2d6fa4; }
-  .stat-row { display: flex; gap: 16px; margin-bottom: 14px; flex-wrap: wrap; }
-  .stat { background: #12151f; border-radius: 8px; padding: 10px 16px; flex: 1; min-width: 120px; }
+  .stat-row {
+    display: flex;
+    gap: 16px;
+    margin-bottom: 24px;
+    flex-wrap: wrap;
+  }
+  .stat {
+    background: #12151f;
+    border-radius: 8px;
+    padding: 10px 16px;
+    flex: 1;
+    min-width: 120px;
+    border: 1px solid #2a2d3a;
+  }
   .stat .val { font-size: 1.5rem; font-weight: 700; color: #fff; }
   .stat .lbl { font-size: 0.7rem; color: #666; margin-top: 2px; }
   .stat.alp-stat .val { color: #e05c5c; }
   .stat.lnp-stat .val { color: #5b9fd4; }
-  canvas { max-height: 280px; }
-  .footer { margin-top: 24px; font-size: 0.7rem; color: #555; text-align: center; }
-  @media (max-width: 700px) { .grid { grid-template-columns: 1fr; } .card.full { grid-column: 1; } }
+  canvas { max-height: 300px; }
+  .canvas-tall { max-height: 420px !important; }
+  .footer {
+    margin-top: 28px;
+    font-size: 0.7rem;
+    color: #555;
+    text-align: center;
+    line-height: 1.6;
+  }
+  @media (max-width: 700px) {
+    .grid { grid-template-columns: 1fr; }
+    .card.full { grid-column: 1; }
+    .stat-row { flex-direction: column; }
+  }
 </style>
 </head>
 <body>
 
 <h1>🇦🇺 Australian Net Migration 2006–2025</h1>
-<p class="subtitle">Source: ABS NOM data · Political party mapping per federal election cycle · Analysis: C-3PO / OpenClaw</p>
+<p class="subtitle">Source: ABS NOM data · Political party mapping per federal election cycle · Charts 6–8 added September 2026 · Analysis: OpenClaw</p>
 
+<!-- ── STAT ROW ── -->
 <div class="stat-row">
   <div class="stat"><div class="val">4.70M</div><div class="lbl">Total net migration 2006–2025</div></div>
   <div class="stat alp-stat"><div class="val">302,504</div><div class="lbl">ALP avg net/year (raw)</div></div>
@@ -46,81 +81,213 @@
 
 <div class="grid">
 
-  <!-- Chart 1: Net migration by year with party colour -->
+  <!-- Chart 1 — Net by year, party coloured -->
   <div class="card full">
     <h2>Chart 1 — Net Migration by Year (coloured by governing party)</h2>
-    <p class="note">Bars coloured by federal governing party. Dashed line = COVID-adjusted trend (2020–2023 averaged to remove COVID distortion).</p>
+    <p class="note">Bars coloured by federal governing party. Dashed line = COVID-adjusted trend (2020–2023 averaged to remove border-closure distortion). ALP years: 2007–2012, 2022–2025. LNP years: 2006, 2013–2021.</p>
     <div class="legend">
       <span><span class="dot alp"></span> ALP government</span>
       <span><span class="dot lnp"></span> LNP government</span>
-      <span><span style="display:inline-block;width:20px;height:2px;background:#facc15;vertical-align:middle;border-top:2px dashed #facc15"></span> COVID-adjusted trend</span>
+      <span><span style="display:inline-block;width:22px;height:0;border-top:2px dashed #facc15;vertical-align:middle;margin-right:2px"></span> COVID-adjusted trend</span>
     </div>
     <canvas id="chart1"></canvas>
   </div>
 
-  <!-- Chart 2: Visa type composition stacked -->
+  <!-- Chart 2 — Stacked visa composition -->
   <div class="card full">
     <h2>Chart 2 — Net Migration by Visa Category (stacked)</h2>
-    <p class="note">Breakdown of net migration by major visa type. Student visas dominate the post-COVID surge but were growing under LNP from 2013.</p>
+    <p class="note">Breakdown of net migration by major visa type. Temporary Student (purple) dominates the post-COVID surge but was growing steadily under LNP from 2013–2018. Negative values in 2020–2021 reflect COVID border closure.</p>
     <canvas id="chart2"></canvas>
   </div>
 
-  <!-- Chart 3: Student visa raw vs adjusted -->
+  <!-- Chart 3 — Student raw vs adjusted -->
   <div class="card">
     <h2>Chart 3 — Student Visa Net: Raw vs COVID-Adjusted</h2>
-    <p class="note">If 2020–2023 were averaged (~106k/yr), the trend shows continuity with the LNP-era growth trajectory — not a post-2022 policy shift.</p>
+    <p class="note">If 2020–2023 are averaged (~106k/yr), the trend shows continuity with the LNP-era growth trajectory — not a post-2022 policy shift. The dashed yellow line shows what would have occurred without border closure.</p>
     <canvas id="chart3"></canvas>
   </div>
 
-  <!-- Chart 4: Perm vs Temp net -->
+  <!-- Chart 4 — Perm vs Temp -->
   <div class="card">
     <h2>Chart 4 — Permanent vs Temporary Net Migration</h2>
-    <p class="note">Temporary migration dominates and drives headline volatility. Permanent migration is relatively stable across both governments.</p>
+    <p class="note">Temporary migration dominates and drives headline volatility. Permanent migration is relatively stable across both governments. Australian citizens (brown) are net-negative most years — more leave than return.</p>
     <canvas id="chart4"></canvas>
   </div>
 
-  <!-- Chart 5: ALP vs LNP avg by visa type -->
+  <!-- Chart 5 — ALP vs LNP avg by visa type -->
   <div class="card full">
     <h2>Chart 5 — Average Annual Net Migration by Visa Type: ALP vs LNP</h2>
-    <p class="note">COVID-adjusted averages. Most visa categories show similar or modest differences. The headline gap is driven primarily by student and temporary categories — categories driven by global demand, not policy settings alone.</p>
+    <p class="note">COVID-adjusted averages (ALP: 2007–2012, 2022–2025; LNP: 2006, 2013–2021). Most visa categories show similar or modest differences. The headline gap is driven primarily by student and temporary categories — categories driven by global demand, not policy settings alone.</p>
     <canvas id="chart5"></canvas>
   </div>
 
+  <!-- Chart 6 — Primary vs Secondary student visa (NEW) -->
+  <div class="card">
+    <h2>Chart 6 — Primary vs Secondary Student Visa Net (2011–2025) ✦ New</h2>
+    <p class="note">Secondary holders are spouses/dependants of primary students. Australia was historically the most permissive Anglophone destination. Minister Burke's 2024 restrictions began narrowing this. UK restricted dependants to PhD-only from Jan 2024; Canada limits to master's/doctoral spouses; US F-2 holders cannot work at all.</p>
+    <div class="legend">
+      <span><span class="dot" style="background:#6366f1"></span> Primary student net</span>
+      <span><span class="dot" style="background:#f472b6"></span> Secondary (dependant) net</span>
+    </div>
+    <canvas id="chart6"></canvas>
+  </div>
+
+  <!-- Chart 7 — Top source countries surge (NEW) -->
+  <div class="card">
+    <h2>Chart 7 — Top Source Countries: Student Visa Surge 2006–2025 ✦ New</h2>
+    <p class="note">Surge countries identified by comparing 2021–25 avg vs 2006–10 avg. Nepal, Philippines, Colombia, Bangladesh, Pakistan, Sri Lanka, Brazil, Kenya all show 2.5×–6.5× increases. <strong>Media-cited countries (Somalia, Lebanon) do not appear in ABS student visa data at significant volumes.</strong></p>
+    <canvas id="chart7"></canvas>
+  </div>
+
+  <!-- Chart 8 — Media narrative vs data reality (NEW) -->
+  <div class="card full">
+    <h2>Chart 8 — Media Narrative vs Data Reality: 2021–25 Average Annual Student Visa Arrivals ✦ New</h2>
+    <p class="note"><strong>Somalia and Lebanon do not appear in ABS student visa data at measurable volumes. Iran shows modest growth (+74%) from a small base — not a surge by any standard. The countries most cited in social cohesion and crime discourse are not the countries driving student visa growth. The political narrative is largely disconnected from the visa data.</strong> Colour: blue = established large sources; orange = surge countries; purple = Nepal/Vietnam; red = media-cited countries.</p>
+    <canvas id="chart8" class="canvas-tall"></canvas>
+  </div>
+
+</div><!-- /grid -->
+
+<div class="footer">
+  Data: ABS Net Overseas Migration (NOM) 2006–2025 · Years assigned to federal government in office at year start · COVID years 2020–2021 noted · Primary/secondary student visa data: ABS Tablebuilder · Country-of-origin data: ABS Tablebuilder temporary student arrivals ·
+  Charts 1–5 original analysis · Charts 6–8 added September 2026 ·
+  <a href="Migration_Briefing_2026.html" style="color:#5b9fd4;text-decoration:none;">← Back to Policy Briefing</a>
 </div>
 
-<div class="footer">Data: ABS Net Overseas Migration (NOM) · Years assigned to federal government in office at year start · COVID years 2020–2021 noted</div>
-
 <script>
-const D = {"years": [2006, 2007, 2008, 2009, 2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024, 2025], "net": [107570, 244030, 315690, 246900, 172040, 206240, 240250, 208370, 182340, 186730, 243820, 241660, 252220, 247620, -4960, 9300, 437850, 530620, 330460, 300960], "net_covid_adj": [107570, 244030, 315690, 246900, 172040, 206240, 240250, 208370, 182340, 186730, 243820, 241660, 252220, 247620, 133225, 123195, 321825, 394565, 330460, 300960], "arrivals": [213410, 460580, 535970, 478790, 425120, 449020, 478360, 478680, 458760, 473250, 519650, 531380, 534400, 607870, 235350, 214410, 651360, 739030, 595820, 563540], "departures": [-105840, -216550, -220280, -231890, -253080, -242770, -238110, -270300, -276420, -286520, -275820, -289710, -282180, -360250, -240320, -205110, -213500, -208400, -265370, -262580], "colors": ["#2d6fa4", "#e05c5c", "#e05c5c", "#e05c5c", "#e05c5c", "#e05c5c", "#e05c5c", "#2d6fa4", "#2d6fa4", "#2d6fa4", "#2d6fa4", "#2d6fa4", "#2d6fa4", "#2d6fa4", "#2d6fa4", "#2d6fa4", "#e05c5c", "#e05c5c", "#e05c5c", "#e05c5c"], "visa_nets": {"Temporary Student": [26020, 92930, 120940, 102090, 35430, 24090, 32750, 55860, 77850, 82300, 92480, 100200, 106720, 51840, -32520, -8230, 221690, 241720, 118810, 106870], "Temporary Visitor": [12940, 27210, 28350, 20020, 25350, 26180, 32380, 31640, 34820, 38650, 52670, 54350, 63790, 100280, 27550, -5980, 81330, 81610, 46830, 39360], "Temporary Working Holiday Maker": [8540, 19080, 23110, 20660, 21150, 35500, 38840, 35100, 23560, 22870, 22110, 27310, 26890, 25210, -840, -4380, 54300, 73100, 60850, 48200], "Temporary Skilled": [11810, 29380, 37670, 15850, 17130, 29330, 32520, 16660, 8810, 11310, 14150, 14910, 14150, 15710, -690, 3180, 33770, 44620, 37900, 33220], "Permanent Skill": [19640, 40290, 46490, 34790, 28480, 28160, 32800, 30900, 32250, 33750, 35610, 37140, 33570, 27920, 8730, 14930, 25170, 34560, 38380, 27670], "NZ Citizen (subclass 444)": [11830, 32020, 38030, 20370, 27170, 43400, 42050, 22410, 7390, 3740, 8170, 6250, 9440, 6340, -5390, 4990, 16080, 33520, 38030, 37300], "Permanent Family": [14590, 27910, 30040, 30880, 27940, 28310, 28580, 31540, 25950, 25790, 25660, 22440, 19620, 17920, 8000, 18050, 18210, 16810, 20020, 16480]}, "perm_net": [40260, 77830, 85890, 76820, 63540, 64500, 66530, 75160, 68920, 68210, 83280, 73840, 64700, 64270, 19490, 35260, 55320, 67210, 74970, 62860], "temp_net": [56880, 163920, 203820, 148200, 86360, 101790, 124850, 125300, 130310, 141790, 168280, 181050, 193240, 173690, -40270, -38980, 390540, 457490, 239320, 215680], "nz_net": [11830, 32020, 38030, 20370, 27170, 43400, 42050, 22410, 7390, 3740, 8170, 6250, 9440, 6340, -5390, 4990, 16080, 33520, 38030, 37300], "aus_net": [420, -24970, -10330, -200, -8660, -8810, -6540, -14650, -22410, -26400, -16320, -13650, -9500, 11430, 24170, 8300, -24060, -27600, -21870, -14850], "student_adj": [26020, 92930, 120940, 102090, 35430, 24090, 32750, 55860, 77850, 82300, 92480, 100200, 106720, 51840, 105665, 105665, 105665, 105665, 118810, 106870], "student_raw": [26020, 92930, 120940, 102090, 35430, 24090, 32750, 55860, 77850, 82300, 92480, 100200, 106720, 51840, -32520, -8230, 221690, 241720, 118810, 106870], "alp_years": [2007, 2008, 2009, 2010, 2011, 2012, 2022, 2023, 2024, 2025], "lnp_years": [2006, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021], "alp_avg": 302504, "lnp_avg": 167467, "alp_avg_adj": 277296, "lnp_avg_adj": 192675, "covid_avg_student": 105665};
+// ── DATA ────────────────────────────────────────────────────────────────
+const years20 = [2006,2007,2008,2009,2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024,2025];
 
+const net = [107570,244030,315690,246900,172040,206240,240250,208370,182340,186730,243820,241660,252220,247620,-4960,9300,437850,530620,330460,300960];
+
+// COVID-adjusted: 2020-2023 averaged smoothly for display trend line
+const net_covid_adj = [107570,244030,315690,246900,172040,206240,240250,208370,182340,186730,243820,241660,252220,247620,133225,123195,321825,394565,330460,300960];
+
+const partyColors = [
+  '#2d6fa4', // 2006 LNP
+  '#e05c5c','#e05c5c','#e05c5c','#e05c5c','#e05c5c','#e05c5c', // 2007-2012 ALP
+  '#2d6fa4','#2d6fa4','#2d6fa4','#2d6fa4','#2d6fa4','#2d6fa4','#2d6fa4','#2d6fa4','#2d6fa4', // 2013-2021 LNP
+  '#e05c5c','#e05c5c','#e05c5c','#e05c5c' // 2022-2025 ALP
+];
+
+const visaNets = {
+  'Temp Student':        [26010,92930,120940,102090,35430,24090,32740,55860,77860,82300,92480,100200,106720,51840,-32530,-8230,221690,241710,118800,106870],
+  'Temp Visitor':        [12940,27210,28350,20020,25350,26180,32380,31640,34820,38650,52670,54350,63790,100280,27550,-5980,81330,81610,46830,39360],
+  'Temp WHM':            [8540,19080,23110,20660,21150,35500,38840,35100,23560,22870,22110,27310,26890,25210,-840,-4380,54300,73100,60850,48200],
+  'Temp Skilled':        [11810,29380,37670,15850,17130,29330,32520,16660,8810,11310,14150,14910,14150,15710,-690,3180,33770,44620,37900,33220],
+  'Perm Skill':          [19640,40290,46490,34790,28470,28170,32800,30900,32260,33750,35610,37150,33570,27910,8740,14940,25170,34560,38380,27660],
+  'NZ (444)':            [11830,32020,38030,20370,27160,43400,42050,22410,7400,3740,8170,6240,9450,6340,-5400,4980,16090,33530,38030,37290],
+  'Perm Family':         [14590,27910,30040,30880,27940,28310,28580,31540,25950,25790,25660,22440,19620,17920,8000,18050,18210,16810,20020,16480],
+};
+const visaColors = {
+  'Temp Student':  '#6366f1',
+  'Temp Visitor':  '#22d3ee',
+  'Temp WHM':      '#f97316',
+  'Temp Skilled':  '#a78bfa',
+  'Perm Skill':    '#34d399',
+  'NZ (444)':      '#60a5fa',
+  'Perm Family':   '#f472b6',
+};
+
+const student_raw = [26010,92930,120940,102090,35430,24090,32740,55860,77860,82300,92480,100200,106720,51840,-32530,-8230,221690,241710,118800,106870];
+const student_adj = [26010,92930,120940,102090,35430,24090,32740,55860,77860,82300,92480,100200,106720,51840,105665,105665,105665,105665,118800,106870];
+
+const perm_net = [40260,77830,85890,76820,63540,64500,66530,75160,68920,68210,83280,73840,64700,64270,19490,35260,55320,67210,74970,62860];
+const temp_net = [56880,163920,203820,148200,86360,101790,124850,125300,130310,141790,168280,181050,193240,173690,-40270,-38980,390540,457490,239320,215680];
+const nz_net   = [11830,32020,38030,20370,27160,43400,42050,22410,7400,3740,8170,6240,9450,6340,-5400,4980,16090,33530,38030,37290];
+const aus_net  = [420,-24970,-10330,-200,-8660,-8810,-6540,-14650,-22410,-26400,-16320,-13650,-9500,11430,24170,8300,-24060,-27600,-21870,-14850];
+
+const alpYears = [2007,2008,2009,2010,2011,2012,2022,2023,2024,2025];
+const lnpYears = [2006,2013,2014,2015,2016,2017,2018,2019,2020,2021];
+
+// Chart 6 — primary vs secondary (2011-2025)
+const years15 = [2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024,2025];
+const primary_net   = [26230,39550,37800,38780,37640,39410,45230,53370,91550,69120,33580,13630,22640,40000,46350];
+const secondary_net = [3970,6300,6020,5860,6040,5980,6510,6560,7260,5970,3850,2340,2740,4670,5410];
+
+// Chart 7 — source country surge lines (2006-2025)
+const countryData = {
+  'Nepal':       [1080,6060,9060,7220,740,830,1770,4550,6240,5490,9050,16200,21880,15760,4100,4050,25660,19140,10650,18810],
+  'Philippines': [320,920,1330,1740,1710,1940,2490,3240,3020,2840,2680,2220,3830,7470,1330,960,10940,16880,5750,4410],
+  'Colombia':    [530,1710,1970,1990,1360,1360,1790,2030,2010,2710,3690,4610,5100,6740,2260,40,12600,17910,3100,1180],
+  'Bangladesh':  [920,2440,1340,1890,1250,1280,1130,1220,1560,1790,1430,2020,2000,1850,790,690,3740,7230,9030,12260],
+  'Pakistan':    [570,1970,1850,2230,2200,2590,3070,2940,3860,3470,2770,3210,3660,4050,1680,2230,6470,10100,3320,2000],
+  'Sri Lanka':   [970,2740,3000,2010,1210,1080,1140,1370,1770,2070,2890,3580,4090,4700,1650,1080,5210,8270,6790,5720],
+  'Brazil':      [980,2240,2760,2120,1780,1780,1890,3770,3730,5350,6400,7570,6080,5600,1360,80,8670,8520,4860,2830],
+  'Kenya':       [160,490,560,510,420,300,430,550,620,750,1110,1180,1050,830,290,260,2840,5280,1510,2300],
+};
+const countryColors = {
+  'Nepal':       '#a78bfa',
+  'Philippines': '#f97316',
+  'Colombia':    '#22d3ee',
+  'Bangladesh':  '#34d399',
+  'Pakistan':    '#facc15',
+  'Sri Lanka':   '#60a5fa',
+  'Brazil':      '#f472b6',
+  'Kenya':       '#fb923c',
+};
+
+// Chart 8 — media narrative vs data
+// sorted descending by value
+const chart8Data = [
+  { label: 'China',       val: 33546, color: '#2d6fa4' },
+  { label: 'India',       val: 31300, color: '#2d6fa4' },
+  { label: 'Nepal',       val: 15662, color: '#a78bfa' },
+  { label: 'Vietnam',     val: 6112,  color: '#a78bfa' },
+  { label: 'Philippines', val: 7788,  color: '#f97316' },
+  { label: 'Colombia',    val: 6966,  color: '#f97316' },
+  { label: 'Bangladesh',  val: 6590,  color: '#f97316' },
+  { label: 'Sri Lanka',   val: 5414,  color: '#f97316' },
+  { label: 'Brazil',      val: 4992,  color: '#f97316' },
+  { label: 'Pakistan',    val: 4824,  color: '#f97316' },
+  { label: 'Kenya',       val: 2438,  color: '#f97316' },
+  { label: 'Iran',        val: 1106,  color: '#e05c5c' },
+  { label: 'Somalia',     val: 0,     color: '#e05c5c' },
+  { label: 'Lebanon',     val: 0,     color: '#e05c5c' },
+].sort((a,b) => b.val - a.val);
+
+// ── COMMON CHART OPTIONS ─────────────────────────────────────────────────
 const gridColor = '#2a2d3a';
 const textColor = '#888';
-const baseOpts = {
-  responsive: true,
-  plugins: { legend: { labels: { color: '#aaa', font: { size: 11 } } }, tooltip: { callbacks: { label: ctx => ' ' + ctx.dataset.label + ': ' + ctx.raw.toLocaleString() } } },
-  scales: {
-    x: { ticks: { color: textColor, font: { size: 10 } }, grid: { color: gridColor } },
-    y: { ticks: { color: textColor, font: { size: 10 }, callback: v => (v/1000).toFixed(0)+'k' }, grid: { color: gridColor } }
+
+const baseScales = {
+  x: {
+    ticks: { color: textColor, font: { size: 10 } },
+    grid:  { color: gridColor }
+  },
+  y: {
+    ticks: { color: textColor, font: { size: 10 }, callback: v => (v/1000).toFixed(0)+'k' },
+    grid:  { color: gridColor }
   }
 };
 
-// Chart 1 — Net by year, party coloured bars + adjusted dashed line
+const baseLegend = {
+  labels: { color: '#aaa', font: { size: 11 }, boxWidth: 12 }
+};
+
+const baseTooltip = {
+  callbacks: {
+    label: ctx => ' ' + ctx.dataset.label + ': ' + ctx.raw.toLocaleString()
+  }
+};
+
+// ── CHART 1 — Net by year, party coloured ───────────────────────────────
 new Chart(document.getElementById('chart1'), {
   type: 'bar',
   data: {
-    labels: D.years,
+    labels: years20,
     datasets: [
       {
         label: 'Net Migration (raw)',
-        data: D.net,
-        backgroundColor: D.colors,
-        borderColor: D.colors,
+        data: net,
+        backgroundColor: partyColors,
+        borderColor: partyColors,
         borderWidth: 1,
         borderRadius: 3,
       },
       {
         label: 'COVID-adjusted trend',
-        data: D.net_covid_adj,
+        data: net_covid_adj,
         type: 'line',
         borderColor: '#facc15',
         borderDash: [6,3],
@@ -129,82 +296,239 @@ new Chart(document.getElementById('chart1'), {
         pointBackgroundColor: '#facc15',
         fill: false,
         tension: 0.3,
+        order: 0,
       }
     ]
   },
-  options: { ...baseOpts }
-});
-
-// Chart 2 — Stacked visa composition
-const visaColors = {
-  'Temporary Student': '#6366f1',
-  'Temporary Visitor': '#22d3ee',
-  'Temporary Working Holiday Maker': '#f97316',
-  'Temporary Skilled': '#a78bfa',
-  'Permanent Skill': '#34d399',
-  'NZ Citizen (subclass 444)': '#60a5fa',
-  'Permanent Family': '#f472b6',
-};
-const visaDatasets = Object.entries(D.visa_nets).map(([label, data]) => ({
-  label, data, backgroundColor: visaColors[label] || '#888', stack: 'stack'
-}));
-new Chart(document.getElementById('chart2'), {
-  type: 'bar',
-  data: { labels: D.years, datasets: visaDatasets },
   options: {
-    ...baseOpts,
-    plugins: { ...baseOpts.plugins, legend: { labels: { color: '#aaa', font: { size: 10 }, boxWidth: 12 } } },
-    scales: { ...baseOpts.scales, x: { ...baseOpts.scales.x, stacked: true }, y: { ...baseOpts.scales.y, stacked: true } }
+    responsive: true,
+    plugins: { legend: baseLegend, tooltip: baseTooltip },
+    scales: baseScales
   }
 });
 
-// Chart 3 — Student visa raw vs adjusted
+// ── CHART 2 — Stacked visa composition ──────────────────────────────────
+const visaDatasets = Object.entries(visaNets).map(([label, data]) => ({
+  label,
+  data,
+  backgroundColor: visaColors[label] || '#888',
+  stack: 'visa'
+}));
+
+new Chart(document.getElementById('chart2'), {
+  type: 'bar',
+  data: { labels: years20, datasets: visaDatasets },
+  options: {
+    responsive: true,
+    plugins: {
+      legend: { labels: { color: '#aaa', font: { size: 10 }, boxWidth: 12 } },
+      tooltip: baseTooltip
+    },
+    scales: {
+      x: { ...baseScales.x, stacked: true },
+      y: { ...baseScales.y, stacked: true }
+    }
+  }
+});
+
+// ── CHART 3 — Student raw vs adjusted ───────────────────────────────────
 new Chart(document.getElementById('chart3'), {
   type: 'bar',
   data: {
-    labels: D.years,
+    labels: years20,
     datasets: [
-      { label: 'Student net (raw)', data: D.student_raw, backgroundColor: '#6366f188', borderColor: '#6366f1', borderWidth: 1, borderRadius: 3 },
-      { label: 'Student net (COVID-adj)', data: D.student_adj, type: 'line', borderColor: '#facc15', borderDash: [5,3], borderWidth: 2, pointRadius: 3, pointBackgroundColor: '#facc15', fill: false, tension: 0.3 }
-    ]
-  },
-  options: { ...baseOpts }
-});
-
-// Chart 4 — Perm vs Temp
-new Chart(document.getElementById('chart4'), {
-  type: 'bar',
-  data: {
-    labels: D.years,
-    datasets: [
-      { label: 'Permanent (net)', data: D.perm_net, backgroundColor: '#34d39988', borderColor: '#34d399', borderWidth: 1, borderRadius: 3, stack: 'stack' },
-      { label: 'Temporary (net)', data: D.temp_net, backgroundColor: '#6366f188', borderColor: '#6366f1', borderWidth: 1, borderRadius: 3, stack: 'stack' },
-      { label: 'NZ Citizens (net)', data: D.nz_net, backgroundColor: '#60a5fa88', borderColor: '#60a5fa', borderWidth: 1, borderRadius: 3, stack: 'stack' },
-      { label: 'Australian Citizens (net)', data: D.aus_net, backgroundColor: '#f4722888', borderColor: '#f47228', borderWidth: 1, borderRadius: 3, stack: 'stack' },
+      {
+        label: 'Student net (raw)',
+        data: student_raw,
+        backgroundColor: '#6366f188',
+        borderColor: '#6366f1',
+        borderWidth: 1,
+        borderRadius: 3
+      },
+      {
+        label: 'COVID-adjusted (~106k/yr)',
+        data: student_adj,
+        type: 'line',
+        borderColor: '#facc15',
+        borderDash: [5,3],
+        borderWidth: 2,
+        pointRadius: 3,
+        pointBackgroundColor: '#facc15',
+        fill: false,
+        tension: 0.3,
+        order: 0,
+      }
     ]
   },
   options: {
-    ...baseOpts,
-    scales: { ...baseOpts.scales, x: { ...baseOpts.scales.x, stacked: true }, y: { ...baseOpts.scales.y, stacked: true } }
+    responsive: true,
+    plugins: { legend: baseLegend, tooltip: baseTooltip },
+    scales: baseScales
   }
 });
 
-// Chart 5 — ALP vs LNP avg by visa type (COVID-adjusted)
-const visaLabels = Object.keys(D.visa_nets);
-function avg(arr, yrs) { const vals = yrs.map(y => { const i = D.years.indexOf(y); return D.visa_nets[arr][i]; }); return vals.reduce((a,b)=>a+b,0)/vals.length; }
-const alpAvgs = visaLabels.map(v => Math.round(avg(v, D.alp_years)));
-const lnpAvgs = visaLabels.map(v => Math.round(avg(v, D.lnp_years)));
-const shortLabels = visaLabels.map(v => v.replace('Temporary ','Temp ').replace('Permanent ','Perm ').replace('Working Holiday Maker','WHM').replace(' (subclass 444)',''));
+// ── CHART 4 — Perm vs Temp ───────────────────────────────────────────────
+new Chart(document.getElementById('chart4'), {
+  type: 'bar',
+  data: {
+    labels: years20,
+    datasets: [
+      { label: 'Permanent (net)',          data: perm_net, backgroundColor: '#34d39988', borderColor: '#34d399', borderWidth: 1, borderRadius: 3, stack: 's' },
+      { label: 'Temporary (net)',          data: temp_net, backgroundColor: '#6366f188', borderColor: '#6366f1', borderWidth: 1, borderRadius: 3, stack: 's' },
+      { label: 'NZ Citizens (net)',        data: nz_net,   backgroundColor: '#60a5fa88', borderColor: '#60a5fa', borderWidth: 1, borderRadius: 3, stack: 's' },
+      { label: 'Australian Citizens (net)',data: aus_net,  backgroundColor: '#f4722888', borderColor: '#f47228', borderWidth: 1, borderRadius: 3, stack: 's' },
+    ]
+  },
+  options: {
+    responsive: true,
+    plugins: { legend: baseLegend, tooltip: baseTooltip },
+    scales: {
+      x: { ...baseScales.x, stacked: true },
+      y: { ...baseScales.y, stacked: true }
+    }
+  }
+});
+
+// ── CHART 5 — ALP vs LNP avg by visa type ───────────────────────────────
+const visaLabels = Object.keys(visaNets);
+
+function avgByYears(visaKey, selectedYears) {
+  const vals = selectedYears.map(yr => {
+    const i = years20.indexOf(yr);
+    return i >= 0 ? visaNets[visaKey][i] : 0;
+  });
+  return Math.round(vals.reduce((a,b)=>a+b,0) / vals.length);
+}
+
+const alpAvgs = visaLabels.map(v => avgByYears(v, alpYears));
+const lnpAvgs = visaLabels.map(v => avgByYears(v, lnpYears));
+
 new Chart(document.getElementById('chart5'), {
   type: 'bar',
   data: {
-    labels: shortLabels,
+    labels: visaLabels,
     datasets: [
-      { label: 'ALP average (net/yr)', data: alpAvgs, backgroundColor: '#e05c5c99', borderColor: '#e05c5c', borderWidth: 1, borderRadius: 3 },
-      { label: 'LNP average (net/yr)', data: lnpAvgs, backgroundColor: '#2d6fa499', borderColor: '#2d6fa4', borderWidth: 1, borderRadius: 3 },
+      { label: 'ALP avg net/yr', data: alpAvgs, backgroundColor: '#e05c5c99', borderColor: '#e05c5c', borderWidth: 1, borderRadius: 3 },
+      { label: 'LNP avg net/yr', data: lnpAvgs, backgroundColor: '#2d6fa499', borderColor: '#2d6fa4', borderWidth: 1, borderRadius: 3 },
     ]
   },
-  options: { ...baseOpts }
+  options: {
+    responsive: true,
+    plugins: { legend: baseLegend, tooltip: baseTooltip },
+    scales: baseScales
+  }
+});
+
+// ── CHART 6 — Primary vs Secondary student visa stacked ─────────────────
+new Chart(document.getElementById('chart6'), {
+  type: 'bar',
+  data: {
+    labels: years15,
+    datasets: [
+      {
+        label: 'Primary student net',
+        data: primary_net,
+        backgroundColor: '#6366f1aa',
+        borderColor: '#6366f1',
+        borderWidth: 1,
+        borderRadius: 3,
+        stack: 'sv'
+      },
+      {
+        label: 'Secondary (dependant) net',
+        data: secondary_net,
+        backgroundColor: '#f472b6aa',
+        borderColor: '#f472b6',
+        borderWidth: 1,
+        borderRadius: 3,
+        stack: 'sv'
+      }
+    ]
+  },
+  options: {
+    responsive: true,
+    plugins: { legend: baseLegend, tooltip: baseTooltip },
+    scales: {
+      x: { ...baseScales.x, stacked: true },
+      y: { ...baseScales.y, stacked: true }
+    }
+  }
+});
+
+// ── CHART 7 — Source country surge lines ────────────────────────────────
+const countryDatasets = Object.entries(countryData).map(([country, data]) => ({
+  label: country,
+  data: data,
+  borderColor: countryColors[country],
+  backgroundColor: countryColors[country] + '33',
+  borderWidth: 2,
+  pointRadius: 2,
+  pointHoverRadius: 5,
+  tension: 0.3,
+  fill: false,
+}));
+
+new Chart(document.getElementById('chart7'), {
+  type: 'line',
+  data: { labels: years20, datasets: countryDatasets },
+  options: {
+    responsive: true,
+    plugins: {
+      legend: { labels: { color: '#aaa', font: { size: 10 }, boxWidth: 12 } },
+      tooltip: baseTooltip
+    },
+    scales: {
+      x: { ticks: { color: textColor, font: { size: 10 } }, grid: { color: gridColor } },
+      y: {
+        ticks: { color: textColor, font: { size: 10 }, callback: v => v.toLocaleString() },
+        grid: { color: gridColor }
+      }
+    }
+  }
+});
+
+// ── CHART 8 — Horizontal bar: media narrative vs data reality ────────────
+new Chart(document.getElementById('chart8'), {
+  type: 'bar',
+  data: {
+    labels: chart8Data.map(d => d.label),
+    datasets: [
+      {
+        label: '2021–25 avg annual student visa arrivals',
+        data: chart8Data.map(d => d.val),
+        backgroundColor: chart8Data.map(d => d.color + 'cc'),
+        borderColor: chart8Data.map(d => d.color),
+        borderWidth: 1,
+        borderRadius: 4,
+      }
+    ]
+  },
+  options: {
+    indexAxis: 'y',
+    responsive: true,
+    plugins: {
+      legend: { display: false },
+      tooltip: {
+        callbacks: {
+          label: ctx => {
+            const v = ctx.raw;
+            if (v === 0) return '  Not in ABS data at measurable volume';
+            return '  Avg arrivals/yr: ' + v.toLocaleString();
+          }
+        }
+      }
+    },
+    scales: {
+      x: {
+        ticks: { color: textColor, font: { size: 10 }, callback: v => v.toLocaleString() },
+        grid: { color: gridColor }
+      },
+      y: {
+        ticks: { color: '#ccc', font: { size: 11 } },
+        grid: { color: gridColor }
+      }
+    }
+  }
 });
 </script>
 </body>
