@@ -68,7 +68,7 @@
 <body>
 
 <h1>🇦🇺 Australian Net Migration 2006–2025</h1>
-<p class="subtitle">Source: ABS NOM data · Political party mapping per federal election cycle · Charts 6–8 added September 2026 · Analysis: OpenClaw</p>
+<p class="subtitle">Source: ABS NOM data · Political party mapping per federal election cycle · Charts 6–8 added September 2026 · Chart 9 (NZ 444 vs Student visa) added September 2026 · Analysis: OpenClaw</p>
 
 <!-- ── STAT ROW ── -->
 <div class="stat-row">
@@ -139,6 +139,17 @@
     <canvas id="chart7"></canvas>
   </div>
 
+  <!-- Chart 9 — NZ 444 vs Student visa net time series (NEW) -->
+  <div class="card full">
+    <h2>Chart 9 — NZ Subclass 444 vs Temporary Student Visa Net Migration 2006–2025 ✦ New</h2>
+    <p class="note"><strong>Measurement note:</strong> The Subclass 444 (Special Category Visa) is normally granted each time an eligible NZ citizen enters Australia and ceases when the holder leaves — so raw arrival counts can record the same individual repeatedly across multiple trans-Tasman trips. These figures use NOM (12/16-month rule), not raw arrivals. NZ citizen net migration grew strongly post-COVID (37k+ in 2024–25), driven by demand-side recovery with no policy change. <strong>The ABS explicitly warns that Overseas Arrivals and Departures border-movement data should not be treated as a measure of population change; Net Overseas Migration is the appropriate measure.</strong></p>
+    <div class="legend">
+      <span><span class="dot" style="background:#60a5fa"></span> NZ Citizens — Subclass 444 (net NOM)</span>
+      <span><span class="dot" style="background:#6366f1"></span> Temporary Student Visa (net NOM)</span>
+    </div>
+    <canvas id="chart9" class="canvas-tall"></canvas>
+  </div>
+
   <!-- Chart 8 — Media narrative vs data reality (NEW) -->
   <div class="card full">
     <h2>Chart 8 — Media Narrative vs Data Reality: 2021–25 Average Annual Student Visa Arrivals ✦ New</h2>
@@ -150,7 +161,7 @@
 
 <div class="footer">
   Data: ABS Net Overseas Migration (NOM) 2006–2025 · Years assigned to federal government in office at year start · COVID years 2020–2021 noted · Primary/secondary student visa data: ABS Tablebuilder · Country-of-origin data: ABS Tablebuilder temporary student arrivals ·
-  Charts 1–5 original analysis · Charts 6–8 added September 2026 ·
+  Charts 1–5 original analysis · Charts 6–8 added September 2026 · Chart 9 (NZ 444) added September 2026 ·
   <a href="Migration_Briefing_2026.html" style="color:#5b9fd4;text-decoration:none;">← Back to Policy Briefing</a>
 </div>
 
@@ -526,6 +537,58 @@ new Chart(document.getElementById('chart8'), {
       y: {
         ticks: { color: '#ccc', font: { size: 11 } },
         grid: { color: gridColor }
+      }
+    }
+  }
+});
+
+// ── CHART 9 — NZ Subclass 444 vs Student visa net ───────────────────────────────────────
+new Chart(document.getElementById('chart9'), {
+  type: 'bar',
+  data: {
+    labels: years20,
+    datasets: [
+      {
+        label: 'NZ Citizens — Subclass 444 (net NOM)',
+        data: nz_net,
+        backgroundColor: '#60a5fa88',
+        borderColor: '#60a5fa',
+        borderWidth: 1,
+        borderRadius: 3,
+        order: 2,
+      },
+      {
+        label: 'Temporary Student Visa (net NOM)',
+        data: student_raw,
+        type: 'line',
+        borderColor: '#6366f1',
+        backgroundColor: '#6366f133',
+        borderWidth: 2,
+        pointRadius: 3,
+        pointBackgroundColor: '#6366f1',
+        fill: true,
+        tension: 0.3,
+        order: 1,
+      }
+    ]
+  },
+  options: {
+    responsive: true,
+    plugins: {
+      legend: baseLegend,
+      tooltip: baseTooltip,
+      annotation: undefined
+    },
+    scales: {
+      x: { ...baseScales.x },
+      y: {
+        ...baseScales.y,
+        title: {
+          display: true,
+          text: 'Net NOM (persons)',
+          color: '#888',
+          font: { size: 10 }
+        }
       }
     }
   }
