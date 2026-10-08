@@ -82,6 +82,123 @@
     color: #333;
     line-height: 1.65;
   }
+  .exec-summary p + p {
+    margin-top: 10px;
+  }
+
+  /* ── October 2026 policy update banner ── */
+  .policy-update {
+    background: #fffbeb;
+    border: 1px solid #f59e0b;
+    border-left: 5px solid #d97706;
+    border-radius: 10px;
+    padding: 22px 26px;
+    margin-bottom: 24px;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.06);
+  }
+  .policy-update h2 {
+    font-size: 0.72rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: #b45309;
+    margin-bottom: 6px;
+  }
+  .policy-update .update-date {
+    font-size: 0.75rem;
+    color: #92400e;
+    margin-bottom: 14px;
+  }
+  .policy-update p {
+    font-size: 0.93rem;
+    color: #333;
+    line-height: 1.65;
+    margin-bottom: 10px;
+  }
+  .policy-update p:last-child { margin-bottom: 0; }
+  .policy-update h3 {
+    font-size: 0.82rem;
+    font-weight: 700;
+    color: #78350f;
+    margin: 18px 0 8px;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+
+  /* ── Policy comparison table ── */
+  .compare-wrap {
+    overflow-x: auto;
+    margin: 16px 0 4px;
+  }
+  .compare-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.82rem;
+    line-height: 1.4;
+  }
+  .compare-table th {
+    background: #003366;
+    color: white;
+    padding: 9px 12px;
+    text-align: left;
+    font-weight: 600;
+    font-size: 0.78rem;
+  }
+  .compare-table th.th-alp { background: #b91c1c; }
+  .compare-table th.th-lnp { background: #1d4ed8; }
+  .compare-table th.th-on  { background: #b45309; }
+  .compare-table td {
+    padding: 9px 12px;
+    border-bottom: 1px solid #e5e9ef;
+    vertical-align: top;
+    color: #222;
+  }
+  .compare-table tr:nth-child(even) td { background: #f8fafc; }
+  .compare-table tr:hover td { background: #eef3fa; }
+  .compare-table td:first-child {
+    font-weight: 600;
+    color: #003366;
+    white-space: nowrap;
+    width: 160px;
+  }
+  .tag {
+    display: inline-block;
+    border-radius: 4px;
+    padding: 1px 7px;
+    font-size: 0.7rem;
+    font-weight: 700;
+    margin-right: 4px;
+    vertical-align: middle;
+  }
+  .tag-adopted  { background: #d1fae5; color: #065f46; }
+  .tag-partial  { background: #fef3c7; color: #92400e; }
+  .tag-rejected { background: #fee2e2; color: #991b1b; }
+  .tag-na       { background: #f1f5f9; color: #64748b; }
+
+  /* ── Warning/risk callout ── */
+  .risk-callout {
+    background: #fff1f2;
+    border: 1px solid #fca5a5;
+    border-left: 4px solid #dc2626;
+    border-radius: 8px;
+    padding: 14px 18px;
+    margin: 12px 0;
+    font-size: 0.88rem;
+    color: #333;
+    line-height: 1.6;
+  }
+  .risk-callout strong { color: #991b1b; }
+  .insight-callout {
+    background: #eff6ff;
+    border: 1px solid #93c5fd;
+    border-left: 4px solid #2563eb;
+    border-radius: 8px;
+    padding: 14px 18px;
+    margin: 12px 0;
+    font-size: 0.88rem;
+    color: #333;
+    line-height: 1.6;
+  }
+  .insight-callout strong { color: #1e40af; }
 
   /* ── KPI stat row ── */
   .kpi-row {
@@ -391,10 +508,10 @@
 <div class="page-header">
   <div class="kicker">Policy Analysis · ABS Net Overseas Migration Data</div>
   <h1>Australian Migration 2006–2025<br>A Data-Driven Policy Briefing</h1>
-  <p class="subtitle">Analysis of 20 years of ABS Net Overseas Migration (NOM) data, disaggregated by visa type and mapped to federal governing party. Prepared to inform debate on proposed migration policy changes.</p>
+  <p class="subtitle">Analysis of 20 years of ABS Net Overseas Migration (NOM) data, disaggregated by visa type and mapped to federal governing party. Updated October 2026 to assess the migration platforms announced by Labor, the Coalition, and One Nation against the briefing’s original recommendations.</p>
   <div class="meta-row">
     <span class="meta-pill">📊 Source: ABS NOM 2006–2025</span>
-    <span class="meta-pill">🗓️ Prepared: September 2026</span>
+    <span class="meta-pill">🗓️ Prepared: September 2026 · Updated: October 2026</span>
     <span class="meta-pill">🇦🇺 National level data</span>
     <span class="meta-pill">📈 20-year dataset</span>
   </div>
@@ -406,7 +523,8 @@
   <!-- Executive Summary -->
   <div class="exec-summary">
     <h2>Executive Summary</h2>
-    <p>The current political debate frames Australia's migration levels as an ALP policy failure. The ABS data tells a more complicated story. While net migration <em>has</em> been higher under the current ALP government, the headline numbers are substantially explained by a post-COVID mathematical rebound — a structural phenomenon, not a policy choice. The visa categories targeted by opposition proposals (students, skilled workers) were growing steadily under the previous LNP government and would have continued absent COVID. When the COVID distortion is removed, the gap between ALP and LNP migration averages narrows from <strong>2.4× to 1.6×</strong> — and the student visa trend shows effective continuity across the two governments.</p>
+    <p>The current political debate frames Australia’s migration levels as an ALP policy failure. The ABS data tells a more complicated story. While net migration <em>has</em> been higher under the current ALP government, the headline numbers are substantially explained by a post-COVID mathematical rebound — a structural phenomenon, not a policy choice. The visa categories targeted by opposition proposals (students, skilled workers) were growing steadily under the previous LNP government and would have continued absent COVID. When the COVID distortion is removed, the gap between ALP and LNP migration averages narrows from <strong>2.4× to 1.6×</strong> — and the student visa trend shows effective continuity across the two governments.</p>
+    <p><strong>October 2026 update:</strong> All three major parties — Labor, the Coalition, and One Nation — have now released migration platforms. Their proposals range from Labor’s targeted tightening (225,000/year target) to the Coalition’s temporary halving (100,000 for two years) to One Nation’s negative net migration for three years. This briefing has been updated to assess those proposals against the evidence, identify internal policy contradictions, and flag the economic risks that are not being discussed in public debate. See the <em>October 2026 Policy Update</em> section immediately below.</p>
   </div>
 
   <!-- KPI Row -->
@@ -429,6 +547,176 @@
       <div class="kpi-val">1.65M</div>
       <div class="kpi-label">Student visa net migration<br>2006–2025 — largest single category</div>
     </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════════════════
+       OCTOBER 2026 POLICY UPDATE
+  ═══════════════════════════════════════════════════════ -->
+  <div class="policy-update">
+    <h2>October 2026 Policy Update</h2>
+    <div class="update-date">Added 8 October 2026 · All three major party platforms now released</div>
+
+    <p>With the Coalition’s platform now public, all three major parties have defined their migration positions ahead of the next federal election. The proposals span an extraordinary range — from Labor’s return to the long-run trend, to a Coalition halving, to One Nation’s unprecedented negative net migration target. This section assesses each platform against the analytical framework developed in the original briefing.</p>
+
+    <h3>Party Platforms at a Glance</h3>
+    <div class="compare-wrap">
+      <table class="compare-table">
+        <thead>
+          <tr>
+            <th>Policy dimension</th>
+            <th class="th-alp">🟥 ALP — Labor</th>
+            <th class="th-lnp">🟦 Coalition (LNP)</th>
+            <th class="th-on">🟧 One Nation</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Net migration target</td>
+            <td>225,000/yr by 2028 (long-run trend)</td>
+            <td>100k (yr 1–2) → 130k (yr 3) → 160k (yr 4) → indexed to housing completions</td>
+            <td>Negative (~−25k/yr) for 3 years; then &lt;130k long-term</td>
+          </tr>
+          <tr>
+            <td>International students</td>
+            <td>No major additional volume cuts; prohibits downward visa-hopping (must progress to higher AQF level)</td>
+            <td>Commencements cut from ~295k to 240k; Subclass 485 (Temporary Graduate) visa abolished</td>
+            <td>Commencements capped at ~100k (from ~290k)</td>
+          </tr>
+          <tr>
+            <td>Post-study work rights (Subclass 485)</td>
+            <td>Retained; no field-of-study gate</td>
+            <td><strong>Abolished</strong> with limited exceptions</td>
+            <td>Effectively eliminated at proposed volumes</td>
+          </tr>
+          <tr>
+            <td>Dependants of skilled workers</td>
+            <td>No cuts; explicitly warns restricting these makes Australia uncompetitive</td>
+            <td>Cut to zero</td>
+            <td>Cut to near-zero</td>
+          </tr>
+          <tr>
+            <td>Dependants of students</td>
+            <td>Continuing Burke 2024 restrictions (Pacific/ASEAN/PhD exempt)</td>
+            <td>Exceeds Burke 2024; near-zero outside narrow exemptions</td>
+            <td>Near-zero; only ~6,500 PhD researcher partners exempt</td>
+          </tr>
+          <tr>
+            <td>Bridging visa backlog (~400k)</td>
+            <td>No specific commitment</td>
+            <td>Require all subsequent applications offshore; “virtually eliminate” backlog</td>
+            <td>Deport overstayers; require offshore processing</td>
+          </tr>
+          <tr>
+            <td>Humanitarian program</td>
+            <td>Maintains 20,000 cap</td>
+            <td>Halved to 10,000 (surge capacity for major incidents)</td>
+            <td>Not specified; implied severe cuts</td>
+          </tr>
+          <tr>
+            <td>Skilled worker priority</td>
+            <td>No structural change; warns against cutting skilled dependants</td>
+            <td>Construction workers “heavily prioritised” within reduced overall numbers</td>
+            <td>Volume cut supersedes skills-mix considerations</td>
+          </tr>
+          <tr>
+            <td>Housing-migration link</td>
+            <td>Referenced politically but not embedded in formula</td>
+            <td>Future cap <em>tied to pace of housing completions</em></td>
+            <td>“Breathing space for housing construction” is the central stated rationale</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h3>Economic Risks Not Being Discussed</h3>
+
+    <p><strong>Labor (225k):</strong> The most analytically consistent with the 20-year trend. Primary risks are continued shortfalls in healthcare and aged-care workforce (the sectors most stressed by slower student intake), and ongoing university revenue pressure from Burke 2024 secondary visa restrictions. Calibrated disruption rather than structural shock.</p>
+
+    <div class="risk-callout">
+      <strong>Coalition risk — procyclical housing feedback loop:</strong> Tying future migration to the <em>pace of housing completions</em> creates a mechanism that amplifies rather than corrects construction labour shortages. The chain: migration cut → fewer construction workers → slower completions → lower migration ceiling → fewer workers still. A stabilising formula would be countercyclical (more migration when completions are low). The LNP formula as described has the causality inverted.
+    </div>
+
+    <div class="risk-callout">
+      <strong>Coalition risk — internal contradiction on Subclass 485:</strong> The LNP says it wants to prioritise construction workers, then abolishes the Subclass 485 Temporary Graduate visa — the most accessible post-study pathway for engineering and construction management graduates. Full abolition removes the entire 100,000+ holder cohort, including graduates in exactly the fields the policy says it wants to prioritise. A field-of-study gate (retaining 485 for healthcare, construction, STEM) would achieve the stated objective without this contradiction.
+    </div>
+
+    <div class="risk-callout">
+      <strong>Coalition &amp; One Nation risk — skilled worker competitiveness:</strong> Both parties propose cutting dependants of skilled workers to zero or near-zero. Australia competes with Canada, the UK, and the US for nurses, aged-care workers, engineers, and secondary teachers. All three competitor countries offer dependant rights from the point of skilled visa grant. A zero-dependant policy places Australia at a structural disadvantage in recruiting the workers its platforms say they most want to attract.
+    </div>
+
+    <div class="risk-callout">
+      <strong>One Nation risk — recession scenario:</strong> Negative net migration of ~−25,000/year for three years represents a cumulative 750,000-person reduction against Treasury forecasts. Independent economic commentary and the Productivity Commission’s own migration modelling frameworks consistently show GDP contraction at this speed of reduction. International students alone contribute approximately $36–40 billion to the Australian economy annually. Several regional universities would likely become unviable within two years under this scenario.
+    </div>
+
+    <div class="insight-callout">
+      <strong>All parties — housing-migration conflation:</strong> This briefing’s original analysis showed that the housing stress most acutely affecting lower-income Australians is concentrated in outer suburban and regional markets where international students are largely absent. The visa categories competing with regional renters are agricultural and hospitality streams, not student visas. All three parties have nonetheless doubled down on the migration-housing link — including the LNP embedding it in the migration formula itself. The analytical case against conflation remains sound; it has not gained political traction.
+    </div>
+
+    <h3>How the Announced Policies Compare to This Briefing’s Recommendations</h3>
+    <div class="compare-wrap">
+      <table class="compare-table">
+        <thead>
+          <tr>
+            <th>Recommendation (original briefing)</th>
+            <th class="th-alp">🟥 ALP</th>
+            <th class="th-lnp">🟦 LNP</th>
+            <th class="th-on">🟧 One Nation</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>1. Offshore PR lodgement for former student/485 holders</td>
+            <td><span class="tag tag-partial">Partial</span> Visa-hopping rule is a proxy</td>
+            <td><span class="tag tag-adopted">Adopted</span> Offshore bridging applications</td>
+            <td><span class="tag tag-adopted">Adopted</span> Offshore processing + deportation</td>
+          </tr>
+          <tr>
+            <td>2. Field-of-study gate on Subclass 485 (Canadian PGWP model)</td>
+            <td><span class="tag tag-rejected">Not adopted</span></td>
+            <td><span class="tag tag-partial">Exceeded</span> Full abolition — more disruptive than recommended</td>
+            <td><span class="tag tag-na">N/A</span> Moot at proposed volumes</td>
+          </tr>
+          <tr>
+            <td>3. Complete Burke 2024 secondary visa restrictions</td>
+            <td><span class="tag tag-adopted">Adopted</span> Continuing</td>
+            <td><span class="tag tag-partial">Exceeded</span> Extends to skilled dependants</td>
+            <td><span class="tag tag-partial">Exceeded</span> Near-zero across the board</td>
+          </tr>
+          <tr>
+            <td>4. STEM post-study extension stream</td>
+            <td><span class="tag tag-rejected">Not adopted</span></td>
+            <td><span class="tag tag-rejected">Not adopted</span> (485 abolished)</td>
+            <td><span class="tag tag-rejected">Not adopted</span></td>
+          </tr>
+          <tr>
+            <td>5. Raise institution standards &amp; English thresholds</td>
+            <td><span class="tag tag-partial">Partial</span> Visa-hopping rule</td>
+            <td><span class="tag tag-partial">Partial</span> Skills-mix language; not operationalised</td>
+            <td><span class="tag tag-rejected">Not adopted</span></td>
+          </tr>
+          <tr>
+            <td>6. Decouple student visa policy from housing policy</td>
+            <td><span class="tag tag-rejected">Not adopted</span></td>
+            <td><span class="tag tag-rejected">Rejected</span> Housing completions embedded in formula</td>
+            <td><span class="tag tag-rejected">Rejected</span> Housing is the central rationale</td>
+          </tr>
+          <tr>
+            <td>7. Longitudinal cohort study (JSA commission)</td>
+            <td><span class="tag tag-na">Not addressed</span></td>
+            <td><span class="tag tag-na">Not addressed</span></td>
+            <td><span class="tag tag-na">Not addressed</span></td>
+          </tr>
+          <tr>
+            <td>8. VET quality via regulation, not visa volume caps</td>
+            <td><span class="tag tag-adopted">Closest</span> Pathway rules over volume</td>
+            <td><span class="tag tag-rejected">Opposite</span> Volume cuts primary</td>
+            <td><span class="tag tag-rejected">Opposite</span> Volume cuts far exceed quality effect</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <p style="margin-top:14px; font-size:0.85rem; color:#555;"><em>Note: This briefing was provided to contacts at the ALP and LNP prior to the announcement of their respective platforms. The intellectual alignment on pipeline integrity and skills-mix framing is real — particularly in the LNP’s explicit language distinguishing “reducing numbers” from “improving skills mix.” Whether this reflects direct influence or parallel development from the same evidence base (Treasury, Grattan, CEDA) cannot be determined. The specific mechanisms recommended — field-of-study gate, STEM extension stream, VET quality regulation — were not adopted by any party.</em></p>
   </div>
 
   <!-- Section 1: Methodological Notes -->
