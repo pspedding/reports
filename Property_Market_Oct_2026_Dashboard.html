@@ -13,6 +13,7 @@ body{font-family:"Inter",sans-serif;background:#f1f5f9;color:#1e293b;padding:24p
 header{text-align:center;margin-bottom:32px}
 header h1{font-size:1.75rem;font-weight:700;color:#1e293b}
 header p{color:#64748b;margin-top:6px;font-size:.95rem}
+@media print{header p{font-size:.78rem;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}}
 .card{background:#fff;border-radius:12px;box-shadow:0 1px 4px rgba(0,0,0,.08);padding:24px;margin-bottom:24px}
 .card h2{font-size:1.1rem;font-weight:600;color:#1e293b;margin-bottom:16px;padding-bottom:10px;border-bottom:2px solid #f1f5f9}
 .kpi-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
@@ -70,7 +71,7 @@ footer{text-align:center;font-size:.78rem;color:#94a3b8;margin-top:8px;padding:1
   <h2><span>&#128202;</span> Market Overview &mdash; Oct 2026</h2>
   <div class="kpi-grid">
     <div class="kpi"><div class="val">72</div><div class="lbl">Suburbs Tracked</div></div>
-    <div class="kpi"><div class="val amber">$1,130,250</div><div class="lbl">Median House Price</div><div class="sub">$15,250 vs Sep</div></div>
+    <div class="kpi"><div class="val amber">$1,130,250</div><div class="lbl">Median House Price</div><div class="sub">-$15,250 vs Sep</div></div>
     <div class="kpi"><div class="val green">+2.8%</div><div class="lbl">Mean House YoY Growth</div></div>
     <div class="kpi"><div class="val">$750,000</div><div class="lbl">Median Unit Price</div></div>
     <div class="kpi"><div class="val">51</div><div class="lbl">Suburbs at/above $1M (house)</div></div>
@@ -115,7 +116,7 @@ footer{text-align:center;font-size:.78rem;color:#94a3b8;margin-top:8px;padding:1
       <div class="price">$1,000,000</div>
       <div class="badges">
         <span class="badge green">Sub-$1M → $1M</span>
-        <span class="badge green">+5.6% from Sep $947,500</span>
+        <span class="badge green">+5.5% MoM from Sep $947,500</span>
         <span class="badge blue">+11.4% YoY</span>
       </div>
     </div>
@@ -197,7 +198,7 @@ footer{text-align:center;font-size:.78rem;color:#94a3b8;margin-top:8px;padding:1
     <tbody><tr><td><strong>Killarney Vale</strong></td><td>$987,750</td><td>$12,250</td><td class="pos">+1.0%</td><td class="pos">+8.5%</td><td>$790,000</td><td>1,271</td><td>🟢 Gaining</td></tr><tr><td><strong>Niagara Park</strong></td><td>$972,000</td><td>$28,000</td><td class="pos">+0.0%</td><td class="pos">+9.5%</td><td>$836,000</td><td>1,064</td><td>🟡 Steady</td></tr><tr><td><strong>Wyongah</strong></td><td>$962,500</td><td>$37,500</td><td class="neg">-1.3%</td><td class="pos">+18.8%</td><td>$690,000</td><td>782</td><td>🟡 Steady</td></tr><tr><td><strong>Wyoming</strong></td><td>$960,000</td><td>$40,000</td><td class="neg">-0.0%</td><td class="pos">+1.5%</td><td>$663,750</td><td>1,786</td><td>🟡 Steady</td></tr></tbody>
   </table>
   </div>
-  <p class="note">Killarney Vale ($987,750, +1.1% MoM) is closest to the $1M threshold. Wyoming has held near $960k for three months with minimal momentum. Wyongah shows modest YoY growth (+18.8%) but retreated -1.3% MoM. All four remain genuine candidates if momentum returns.</p>
+  <p class="note">Killarney Vale ($987,750, +1.0% MoM) is closest to the $1M threshold. Niagara Park ($972,000, +0.0% MoM, +9.5% YoY); Wyongah ($962,500, -1.3% MoM, +18.8% YoY); Wyoming ($960,000, -0.0% MoM, +1.5% YoY) (others). All remain candidates if momentum returns.</p>
 </div>
 
 <!-- INTERESTED BUYERS CHART -->

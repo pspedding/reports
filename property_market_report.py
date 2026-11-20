@@ -198,6 +198,29 @@ def render_html(a):
         umom_rows += pct_cell(umom)
         umom_rows += '</tr>'
 
+    # ── dynamic suburb lookups for change cards / near_1m_note ──
+    _smap = {d["Suburb"]: d for d in a["data"]}
+    def _fmt_mom(sub):
+        v = fv(_smap.get(sub, {}), "MoM Change (%)")
+        if v is None: return "N/A"
+        return ("+" if v >= 0 else "") + f"{v*100:.1f}%"
+    def _fmt_yoy(sub):
+        v = fv(_smap.get(sub, {}), "House Price YoY (%)")
+        if v is None: return "N/A"
+        return ("+" if v >= 0 else "") + f"{v*100:.1f}%"
+    _noraville_mom_badge = _fmt_mom("Noraville") + " MoM from Sep $947,500"
+    if a["near_1m"]:
+        _top = a["near_1m"][0]
+        near_1m_note = (
+            _top["Suburb"] + " (" + fmt_price(_top.get("House Price (Current)")) + ", " + _fmt_mom(_top["Suburb"]) + " MoM) is closest to the $1M threshold. "
+            + "; ".join(
+                nd["Suburb"] + " (" + fmt_price(nd.get("House Price (Current)")) + ", " + _fmt_mom(nd["Suburb"]) + " MoM, " + _fmt_yoy(nd["Suburb"]) + " YoY)"
+                for nd in a["near_1m"][1:]
+            ) + (" (others)." if len(a["near_1m"]) > 1 else ".")
+            + " All remain candidates if momentum returns."
+        )
+    else:
+        near_1m_note = "No suburbs currently in the ≥$960k band."
     # ── change cards (Sep→Oct context) ──
     change_cards = """
     <div class="change-card up">
@@ -205,7 +228,7 @@ def render_html(a):
       <div class="price">$1,000,000</div>
       <div class="badges">
         <span class="badge green">Sub-$1M → $1M</span>
-        <span class="badge green">+5.6% from Sep $947,500</span>
+        <span class="badge green">{_noraville_mom_badge}</span>
         <span class="badge blue">+11.4% YoY</span>
       </div>
     </div>
@@ -262,7 +285,7 @@ def render_html(a):
     yoy_cls = "green" if a["mean_yoy"] >= 0 else "red"
     mom_delta = a["median_house"] - 1_145_500  # vs Sep
     mom_cls = "green" if mom_delta >= 0 else "amber"
-    mom_str = ("+" if mom_delta >= 0 else "") + f"${abs(int(mom_delta)):,} vs Sep"
+    mom_str = ("+" if mom_delta >= 0 else "-") + f"${abs(int(mom_delta)):,} vs Sep"
 
     # ── inline insight boxes ──
     insight_html = """
@@ -311,6 +334,7 @@ body{{font-family:"Inter",sans-serif;background:#f1f5f9;color:#1e293b;padding:24
 header{{text-align:center;margin-bottom:32px}}
 header h1{{font-size:1.75rem;font-weight:700;color:#1e293b}}
 header p{{color:#64748b;margin-top:6px;font-size:.95rem}}
+@media print{{header p{{font-size:.78rem;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}}}}
 .card{{background:#fff;border-radius:12px;box-shadow:0 1px 4px rgba(0,0,0,.08);padding:24px;margin-bottom:24px}}
 .card h2{{font-size:1.1rem;font-weight:600;color:#1e293b;margin-bottom:16px;padding-bottom:10px;border-bottom:2px solid #f1f5f9}}
 .kpi-grid{{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}}
@@ -423,7 +447,7 @@ footer{{text-align:center;font-size:.78rem;color:#94a3b8;margin-top:8px;padding:
     <tbody>{near_rows}</tbody>
   </table>
   </div>
-  <p class="note">Killarney Vale ($987,750, +1.1% MoM) is closest to the $1M threshold. Wyoming has held near $960k for three months with minimal momentum. Wyongah shows modest YoY growth (+18.8%) but retreated -1.3% MoM. All four remain genuine candidates if momentum returns.</p>
+  <p class="note">{near_1m_note}</p>
 </div>
 
 <!-- INTERESTED BUYERS CHART -->
@@ -573,6 +597,7 @@ new Chart(document.getElementById("bandChart"), {{
     html = html.replace("{yoy_rows}", yoy_rows)
     html = html.replace("{umom_rows}", umom_rows)
     html = html.replace("{change_cards}", change_cards)
+    html = html.replace("{_noraville_mom_badge}", _noraville_mom_badge)
     html = html.replace("{insight_html}", insight_html)
     html = html.replace("{yoy_pos_labels}", yoy_pos_labels)
     html = html.replace("{yoy_pos_data}", yoy_pos_data)
