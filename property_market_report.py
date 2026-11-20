@@ -201,7 +201,7 @@ def render_html(a):
     # ── change cards (Sep→Oct context) ──
     change_cards = """
     <div class="change-card up">
-      <div class="suburb-name">Noraville ✅ New $1M suburb</div>
+      <div class="suburb-name">Noraville &mdash; New $1M suburb</div>
       <div class="price">$1,000,000</div>
       <div class="badges">
         <span class="badge green">Sub-$1M → $1M</span>
@@ -210,7 +210,7 @@ def render_html(a):
       </div>
     </div>
     <div class="change-card up">
-      <div class="suburb-name">Wadalba ✅ Confirmed $1M+</div>
+      <div class="suburb-name">Wadalba &mdash; Confirmed $1M+</div>
       <div class="price">$1,010,000</div>
       <div class="badges">
         <span class="badge blue">Sep crossing confirmed</span>
@@ -219,7 +219,7 @@ def render_html(a):
       </div>
     </div>
     <div class="change-card warn">
-      <div class="suburb-name">Gosford 🔥 Extreme MoM surge</div>
+      <div class="suburb-name">Gosford &mdash; Extreme MoM surge</div>
       <div class="price">$1,555,000</div>
       <div class="badges">
         <span class="badge amber">+17.7% MoM +$233k</span>
@@ -227,7 +227,7 @@ def render_html(a):
       </div>
     </div>
     <div class="change-card warn">
-      <div class="suburb-name">West Gosford 🔥 Crossed $1M</div>
+      <div class="suburb-name">West Gosford &mdash; Crossed $1M</div>
       <div class="price">$1,010,099</div>
       <div class="badges">
         <span class="badge amber">+28.7% MoM from $785k Sep</span>
@@ -235,7 +235,7 @@ def render_html(a):
       </div>
     </div>
     <div class="change-card down">
-      <div class="suburb-name">Empire Bay unit 📉 Sharp drop</div>
+      <div class="suburb-name">Empire Bay unit &mdash; Sharp drop</div>
       <div class="price">Unit $450,000</div>
       <div class="badges">
         <span class="badge red">-29.1% unit MoM</span>
@@ -244,7 +244,7 @@ def render_html(a):
       </div>
     </div>
     <div class="change-card down">
-      <div class="suburb-name">Koolewong 📉 Continued decline</div>
+      <div class="suburb-name">Koolewong &mdash; Continued decline</div>
       <div class="price">$885,000</div>
       <div class="badges">
         <span class="badge red">-3.8% MoM Oct</span>
@@ -268,19 +268,19 @@ def render_html(a):
     insight_html = """
     <div class="insight-grid">
       <div class="insight-card amber">
-        <div class="ic-head">📉 Median softening</div>
+        <div class="ic-head"><span class="ico">📉</span>↓ Median softening</div>
         <div class="ic-body">Median house price eased $15,250 from September's $1,145,500. YoY growth also moderated to +2.81% from +3.65%. October reflects a mild correction after two months of gains, though the market remains broadly above $1M median.</div>
       </div>
       <div class="insight-card green">
-        <div class="ic-head">✅ 51 suburbs at or above $1M</div>
+        <div class="ic-head"><span class="ico">✅</span>✓ 51 suburbs at or above $1M</div>
         <div class="ic-body">Net gain of 2 suburbs from September's 49. Noraville crossed the threshold at exactly $1,000,000. Wadalba confirmed its September crossing at $1,010,000. West Gosford also jumped above $1M this month (+28.7% MoM) but warrants independent verification given the magnitude of the move.</div>
       </div>
       <div class="insight-card red">
-        <div class="ic-head">⚠️ Gosford & West Gosford anomalies</div>
+        <div class="ic-head"><span class="ico">⚠️</span>! Gosford &amp; West Gosford anomalies</div>
         <div class="ic-body">Gosford shows +50.4% YoY and +17.7% MoM at $1,555,000. West Gosford surged +28.7% MoM to $1,010,099. These extraordinary movements — in suburbs with notably low visit counts (251 and 133 respectively) — may reflect property-mix changes within the median calculation or other data effects. Without sales count data this cannot be verified. Do not use to represent LGA-wide appreciation.</div>
       </div>
       <div class="insight-card green">
-        <div class="ic-head">🏆 Demand: Wamberal leads</div>
+        <div class="ic-head"><span class="ico">🏆</span>★ Demand: Wamberal leads</div>
         <div class="ic-body">Wamberal (3,454 visits/property) overtakes September's leader Terrigal (now 3,014). Both are coastal lifestyle suburbs above $1.6M. Bateau Bay (2,773) remains highest-engagement suburb in the accessible $1M–$1.3M band — sustained buyer engagement (listing visits proxy, not unique buyers) continues despite median softening.</div>
       </div>
     </div>
@@ -352,7 +352,7 @@ tr:nth-child(even) td{{background:#fafafa}}
 .warn-box{{background:#fff7ed;border:1px solid #fed7aa;border-radius:8px;padding:12px 14px;font-size:.8rem;color:#92400e;margin-top:14px}}
 .info-box{{background:#eff6ff;border:1px solid #93c5fd;border-radius:8px;padding:12px 14px;font-size:.8rem;color:#1e40af;margin-top:14px}}
 footer{{text-align:center;font-size:.78rem;color:#94a3b8;margin-top:8px;padding:16px}}
-@media print{{.card{{break-inside:avoid;page-break-inside:avoid}}.insight-grid{{break-inside:avoid;page-break-inside:avoid}}.insight-card{{break-inside:avoid;page-break-inside:avoid}}.change-grid{{break-inside:avoid;page-break-inside:avoid}}.change-card{{break-inside:avoid;page-break-inside:avoid}}.kpi-grid{{break-inside:avoid;page-break-inside:avoid}}.warn-box{{break-inside:avoid;page-break-inside:avoid}}}}
+@media print{{.card{{break-inside:avoid;page-break-inside:avoid}}.insight-grid{{break-inside:avoid;page-break-inside:avoid}}.insight-card{{break-inside:avoid;page-break-inside:avoid}}.change-grid{{break-inside:avoid;page-break-inside:avoid}}.change-card{{break-inside:avoid;page-break-inside:avoid}}.kpi-grid{{break-inside:avoid;page-break-inside:avoid}}.warn-box{{break-inside:avoid;page-break-inside:avoid}}.card h2 span{{display:none}}.ico{{display:none}}}}
 </style>
 </head>
 <body>
@@ -397,7 +397,7 @@ footer{{text-align:center;font-size:.78rem;color:#94a3b8;margin-top:8px;padding:
 <div class="card">
   <h2><span>&#128200;</span> Top House Price Gainers &mdash; Year on Year (&gt;10%)</h2>
   <div class="chart-wrap tall"><canvas id="gainersChart"></canvas></div>
-  <p class="note">&#9888;&#65039; Gosford +50.4% YoY is highlighted; treat with caution as the cause cannot be confirmed without sales count data. Suburbs marked &#9888;&#65039; have YoY changes &gt;25% which may reflect property-mix or other data effects.</p>
+  <p class="note">[!]#9888; Gosford +50.4% YoY is highlighted; treat with caution as the cause cannot be confirmed without sales count data. Suburbs marked [!]#9888; have YoY changes &gt;25% which may reflect property-mix or other data effects.</p>
 </div>
 
 <!-- YOY DECLINERS CHART -->
@@ -442,7 +442,7 @@ footer{{text-align:center;font-size:.78rem;color:#94a3b8;margin-top:8px;padding:
     <tbody>{nounit_rows}</tbody>
   </table>
   </div>
-  <div class="warn-box">&#9888;&#65039; Absence of a unit median indicates insufficient REA data for a reliable estimate — it does <em>not</em> confirm that no unit stock exists. Erina Heights (house $2,307,500), Pretty Beach ($1,982,500) and Killcare Heights ($1,820,000) are premium lifestyle areas where units may simply not trade frequently enough for a reliable REA median.</div>
+  <div class="warn-box">[!]#9888; Absence of a unit median indicates insufficient REA data for a reliable estimate — it does <em>not</em> confirm that no unit stock exists. Erina Heights (house $2,307,500), Pretty Beach ($1,982,500) and Killcare Heights ($1,820,000) are premium lifestyle areas where units may simply not trade frequently enough for a reliable REA median.</div>
 </div>
 
 <!-- HOUSE YOY FULL TABLE -->
@@ -454,7 +454,7 @@ footer{{text-align:center;font-size:.78rem;color:#94a3b8;margin-top:8px;padding:
     <tbody>{yoy_rows}</tbody>
   </table>
   </div>
-  <p class="note">&#9888;&#65039; marks suburbs with YoY change exceeding &pm;25% — elevated potential for data or property-mix effects; treat these figures with extra caution.</p>
+  <p class="note">[!]#9888; marks suburbs with YoY change exceeding &pm;25% — elevated potential for data or property-mix effects; treat these figures with extra caution.</p>
 </div>
 
 <!-- UNIT MOM CHANGES -->
@@ -477,7 +477,7 @@ footer{{text-align:center;font-size:.78rem;color:#94a3b8;margin-top:8px;padding:
 </div>
 
 <div class="warn-box">
-  &#9888;&#65039; <strong>Data limitations:</strong> All prices are suburb-level REA Group medians, not transaction-weighted LGA medians. YoY and MoM figures use prior-period REA data. &ldquo;Listing visits per property&rdquo; is an engagement proxy, not unique-buyer or sales data. No sales counts, zoning or feasibility data included. Missing unit median = insufficient REA data, not confirmed zero stock. Changes &gt;25% — especially in suburbs with &lt;500 visits/property — may reflect property-mix or other data effects rather than genuine market moves; sales count data would be needed to confirm. This report is for information only and is not investment advice.
+  [!]#9888; <strong>Data limitations:</strong> All prices are suburb-level REA Group medians, not transaction-weighted LGA medians. YoY and MoM figures use prior-period REA data. &ldquo;Listing visits per property&rdquo; is an engagement proxy, not unique-buyer or sales data. No sales counts, zoning or feasibility data included. Missing unit median = insufficient REA data, not confirmed zero stock. Changes &gt;25% — especially in suburbs with &lt;500 visits/property — may reflect property-mix or other data effects rather than genuine market moves; sales count data would be needed to confirm. This report is for information only and is not investment advice.
 </div>
 
 <footer>
