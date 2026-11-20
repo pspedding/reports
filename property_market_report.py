@@ -88,7 +88,7 @@ def analyse(data, month, year):
         median_house=statistics.median(hp),
         median_unit=statistics.median(up) if up else None,
         mean_yoy=statistics.mean(yoy) if yoy else 0,
-        total_visits=int(sum(vis)),
+        median_visits=round(statistics.median(vis)) if vis else 0,
         n_above_1m=n_above_1m,
         n_no_unit=len(no_unit),
         near_1m=near_1m, no_unit=no_unit,
@@ -223,7 +223,7 @@ def render_html(a):
       <div class="price">$1,555,000</div>
       <div class="badges">
         <span class="badge amber">+17.7% MoM +$233k</span>
-        <span class="badge red">+50.4% YoY — thin sample likely</span>
+        <span class="badge red">+50.4% YoY — may reflect data effects</span>
       </div>
     </div>
     <div class="change-card warn">
@@ -231,7 +231,7 @@ def render_html(a):
       <div class="price">$1,010,099</div>
       <div class="badges">
         <span class="badge amber">+28.7% MoM from $785k Sep</span>
-        <span class="badge red">+7.0% YoY — verify thin sample</span>
+        <span class="badge red">+7.0% YoY — 133 visits only</span>
       </div>
     </div>
     <div class="change-card down">
@@ -273,15 +273,15 @@ def render_html(a):
       </div>
       <div class="insight-card green">
         <div class="ic-head">✅ 51 suburbs at or above $1M</div>
-        <div class="ic-body">Net gain of 2 suburbs from September's 49. Noraville crossed the threshold at exactly $1,000,000. Wadalba confirmed its September crossing at $1,010,000. West Gosford also jumped above $1M this month (+28.7% MoM) but requires thin-sample verification.</div>
+        <div class="ic-body">Net gain of 2 suburbs from September's 49. Noraville crossed the threshold at exactly $1,000,000. Wadalba confirmed its September crossing at $1,010,000. West Gosford also jumped above $1M this month (+28.7% MoM) but warrants independent verification given the magnitude of the move.</div>
       </div>
       <div class="insight-card red">
         <div class="ic-head">⚠️ Gosford & West Gosford anomalies</div>
-        <div class="ic-body">Gosford shows +50.4% YoY and +17.7% MoM at $1,555,000. West Gosford surged +28.7% MoM to $1,010,099. These extraordinary movements — in a suburb with just 251 and 133 visits respectively — almost certainly reflect thin samples or property-mix changes. Do not interpret as LGA-wide appreciation at this scale.</div>
+        <div class="ic-body">Gosford shows +50.4% YoY and +17.7% MoM at $1,555,000. West Gosford surged +28.7% MoM to $1,010,099. These extraordinary movements — in suburbs with notably low visit counts (251 and 133 respectively) — may reflect property-mix changes within the median calculation or other data effects. Without sales count data this cannot be verified. Do not use to represent LGA-wide appreciation.</div>
       </div>
       <div class="insight-card green">
         <div class="ic-head">🏆 Demand: Wamberal leads</div>
-        <div class="ic-body">Wamberal (3,454 visits/property) overtakes September's leader Terrigal (now 3,014). Both are coastal lifestyle suburbs above $1.6M. Bateau Bay (2,773) remains highest-engagement suburb in the accessible $1M–$1.3M band — strong buyer competition continues despite median softening.</div>
+        <div class="ic-body">Wamberal (3,454 visits/property) overtakes September's leader Terrigal (now 3,014). Both are coastal lifestyle suburbs above $1.6M. Bateau Bay (2,773) remains highest-engagement suburb in the accessible $1M–$1.3M band — sustained buyer engagement (listing visits proxy, not unique buyers) continues despite median softening.</div>
       </div>
     </div>
 """
@@ -294,7 +294,7 @@ def render_html(a):
     n_no_unit = a["n_no_unit"]
     n_above   = a["n_above_1m"]
     n_subs    = a["n"]
-    tot_vis   = f'{a["total_visits"]:,}'
+    median_vis = str(a["median_visits"])
 
     html = f"""<!DOCTYPE html>
 <html lang="en">
@@ -352,6 +352,7 @@ tr:nth-child(even) td{{background:#fafafa}}
 .warn-box{{background:#fff7ed;border:1px solid #fed7aa;border-radius:8px;padding:12px 14px;font-size:.8rem;color:#92400e;margin-top:14px}}
 .info-box{{background:#eff6ff;border:1px solid #93c5fd;border-radius:8px;padding:12px 14px;font-size:.8rem;color:#1e40af;margin-top:14px}}
 footer{{text-align:center;font-size:.78rem;color:#94a3b8;margin-top:8px;padding:16px}}
+@media print{{.card{{break-inside:avoid;page-break-inside:avoid}}.insight-grid{{break-inside:avoid;page-break-inside:avoid}}.insight-card{{break-inside:avoid;page-break-inside:avoid}}.change-grid{{break-inside:avoid;page-break-inside:avoid}}.change-card{{break-inside:avoid;page-break-inside:avoid}}.kpi-grid{{break-inside:avoid;page-break-inside:avoid}}.warn-box{{break-inside:avoid;page-break-inside:avoid}}}}
 </style>
 </head>
 <body>
@@ -373,7 +374,7 @@ footer{{text-align:center;font-size:.78rem;color:#94a3b8;margin-top:8px;padding:
     <div class="kpi"><div class="val">{n_above}</div><div class="lbl">Suburbs at/above $1M (house)</div></div>
     <div class="kpi"><div class="val amber">{n_near1m}</div><div class="lbl">Approaching $1M (&ge;$960k)</div></div>
     <div class="kpi"><div class="val amber">{n_no_unit}</div><div class="lbl">No unit median reported</div></div>
-    <div class="kpi"><div class="val">{tot_vis}</div><div class="lbl">Total visits/property (LGA)</div></div>
+    <div class="kpi"><div class="val">{median_vis}</div><div class="lbl">Median interested buyers/property (engagement proxy)</div></div>
   </div>
 </div>
 
@@ -389,21 +390,21 @@ footer{{text-align:center;font-size:.78rem;color:#94a3b8;margin-top:8px;padding:
   <div class="change-grid">
   {change_cards}
   </div>
-  <p class="note">Gosford CBD and West Gosford show extraordinary single-month jumps. Both have very low visit counts (251 and 133 respectively) relative to their price levels, flagging thin sample risk. Noraville and Wadalba crossings are more credible given moderate visit volumes.</p>
+  <p class="note">Gosford CBD and West Gosford show extraordinary single-month jumps. Both have notably low visit counts (251 and 133 respectively); sales count data would be needed to assess what drove these changes. Noraville ($1M, 986 visits) and Wadalba ($1,010k, 865 visits) crossed the $1M threshold with more typical visit activity for their price range.</p>
 </div>
 
 <!-- YOY GAINERS CHART -->
 <div class="card">
   <h2><span>&#128200;</span> Top House Price Gainers &mdash; Year on Year (&gt;10%)</h2>
   <div class="chart-wrap tall"><canvas id="gainersChart"></canvas></div>
-  <p class="note">&#9888;&#65039; Gosford +50.4% YoY is highlighted but almost certainly reflects thin sample; treat with caution. Suburbs marked &#9888;&#65039; have YoY changes &gt;25% which likely reflect property-mix or sample effects.</p>
+  <p class="note">&#9888;&#65039; Gosford +50.4% YoY is highlighted; treat with caution as the cause cannot be confirmed without sales count data. Suburbs marked &#9888;&#65039; have YoY changes &gt;25% which may reflect property-mix or other data effects.</p>
 </div>
 
 <!-- YOY DECLINERS CHART -->
 <div class="card">
   <h2><span>&#128201;</span> House Price Decliners &mdash; Year on Year</h2>
   <div class="chart-wrap"><canvas id="losersChart"></canvas></div>
-  <p class="note">Wagstaffe -39.5% YoY persists from Sep. Koolewong continues multi-month retreat. Large negative movements warrant thin-sample caveats unless supported by significant visit volumes.</p>
+  <p class="note">Wagstaffe -39.5% YoY persists from Sep. Koolewong continues multi-month retreat. Large negative movements may reflect property-mix or other data effects — sales count data would be needed to assess causes.</p>
 </div>
 
 <!-- MOM BIG MOVERS CHART -->
@@ -453,7 +454,7 @@ footer{{text-align:center;font-size:.78rem;color:#94a3b8;margin-top:8px;padding:
     <tbody>{yoy_rows}</tbody>
   </table>
   </div>
-  <p class="note">&#9888;&#65039; marks suburbs with YoY change exceeding &pm;25% — high probability of thin-sample effects.</p>
+  <p class="note">&#9888;&#65039; marks suburbs with YoY change exceeding &pm;25% — elevated potential for data or property-mix effects; treat these figures with extra caution.</p>
 </div>
 
 <!-- UNIT MOM CHANGES -->
@@ -476,7 +477,7 @@ footer{{text-align:center;font-size:.78rem;color:#94a3b8;margin-top:8px;padding:
 </div>
 
 <div class="warn-box">
-  &#9888;&#65039; <strong>Data limitations:</strong> All prices are suburb-level REA Group medians, not transaction-weighted LGA medians. YoY and MoM figures use prior-period REA data. &ldquo;Listing visits per property&rdquo; is an engagement proxy, not unique-buyer or sales data. No sales counts, zoning or feasibility data included. Missing unit median = insufficient REA data, not confirmed zero stock. Changes &gt;25% — especially in suburbs with &lt;500 visits/property — almost certainly reflect thin samples or property-mix changes rather than genuine market moves. This report is for information only and is not investment advice.
+  &#9888;&#65039; <strong>Data limitations:</strong> All prices are suburb-level REA Group medians, not transaction-weighted LGA medians. YoY and MoM figures use prior-period REA data. &ldquo;Listing visits per property&rdquo; is an engagement proxy, not unique-buyer or sales data. No sales counts, zoning or feasibility data included. Missing unit median = insufficient REA data, not confirmed zero stock. Changes &gt;25% — especially in suburbs with &lt;500 visits/property — may reflect property-mix or other data effects rather than genuine market moves; sales count data would be needed to confirm. This report is for information only and is not investment advice.
 </div>
 
 <footer>
